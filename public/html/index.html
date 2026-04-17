@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>贝瑞医疗 | 核医学场所建设一站式服务商</title>
+    <!-- Tailwind CSS CDN + 基础配置 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 配置 tailwind 主题扩展：支持深色模式 class 策略，使用内置色值达到品牌视觉一致 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // 完全使用 Tailwind 内置色值，品牌主色使用 orange-600 近似 #FF7830
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 极简过渡动画，无自定义样式覆盖布局，仅平滑过渡保证深色模式体验 */
+        * {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 font-sans antialiased">
+
+    <!-- ================= 头部导航栏 (支持二级菜单 + 移动端汉堡菜单 + 深色模式切换) ================= -->
+    <header
+        class="border-b border-stone-200 dark:border-stone-700 bg-white/90 dark:bg-stone-900/90 backdrop-blur-sm sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+            <!-- Logo + 品牌名 -->
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center text-orange-600 dark:text-orange-400 shadow-sm">
+                    <i class="fas fa-biohazard text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-xl tracking-tight text-stone-800 dark:text-stone-100">贝瑞医疗<span
+                            class="text-orange-600 dark:text-orange-400">科技</span></span>
+                    <p class="text-[11px] leading-tight text-stone-500 dark:text-stone-400 hidden sm:block">
+                        核医学场所建设一站式服务商</p>
+                </div>
+            </div>
+
+            <!-- 桌面端导航 (含二级下拉) -->
+            <nav class="hidden lg:flex items-center gap-7 text-stone-700 dark:text-stone-300 font-medium">
+                <div class="relative group">
+                    <a href="#home"
+                        class="hover:text-orange-600 dark:hover:text-orange-400 transition py-2 block">首页</a>
+                </div>
+                <div class="relative group">
+                    <button
+                        class="flex items-center gap-1 hover:text-orange-600 dark:hover:text-orange-400 transition py-2">
+                        服务内容
+                        <i class="fas fa-chevron-down text-xs group-hover:rotate-180 transition-transform"></i>
+                    </button>
+                    <div
+                        class="absolute left-0 mt-2 w-64 bg-white/95 dark:bg-stone-800/95 backdrop-blur-sm rounded-xl shadow-lg border border-stone-200 dark:border-stone-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-20">
+                        <div class="py-2">
+                            <a href="#service-design"
+                                class="block px-5 py-2.5 hover:bg-stone-50 dark:hover:bg-stone-700 hover:text-orange-600 transition text-sm"><i
+                                    class="fas fa-pencil-ruler w-5 mr-2 text-orange-500"></i> 设计 · 规划布局</a>
+                            <a href="#service-construction"
+                                class="block px-5 py-2.5 hover:bg-stone-50 dark:hover:bg-stone-700 hover:text-orange-600 transition text-sm"><i
+                                    class="fas fa-hard-hat w-5 mr-2 text-orange-500"></i> 施工 · 辐射防护</a>
+                            <a href="#service-equipment"
+                                class="block px-5 py-2.5 hover:bg-stone-50 dark:hover:bg-stone-700 hover:text-orange-600 transition text-sm"><i
+                                    class="fas fa-microscope w-5 mr-2 text-orange-500"></i> 设备 · 监测仪器</a>
+                            <a href="#service-software"
+                                class="block px-5 py-2.5 hover:bg-stone-50 dark:hover:bg-stone-700 hover:text-orange-600 transition text-sm"><i
+                                    class="fas fa-chart-line w-5 mr-2 text-orange-500"></i> 瑞核V1.0智慧系统</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <a href="#advantages"
+                        class="hover:text-orange-600 dark:hover:text-orange-400 transition py-2 block">专业优势</a>
+                </div>
+                <div class="relative group">
+                    <a href="#projects"
+                        class="hover:text-orange-600 dark:hover:text-orange-400 transition py-2 block">业绩案例</a>
+                </div>
+                <div class="relative group">
+                    <a href="#news"
+                        class="hover:text-orange-600 dark:hover:text-orange-400 transition py-2 block">新闻资讯</a>
+                </div>
+                <div class="relative group">
+                    <a href="#contact"
+                        class="hover:text-orange-600 dark:hover:text-orange-400 transition py-2 block">联系我们</a>
+                </div>
+            </nav>
+
+            <!-- 右侧区域：深色模式切换 + 移动端菜单按钮 + 桌面端CTA -->
+            <div class="flex items-center gap-3">
+                <!-- 主题切换按钮 -->
+                <button id="theme-toggle" aria-label="切换深色浅色模式"
+                    class="w-9 h-9 rounded-full inline-flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
+                    <i id="theme-toggle-sun" class="fas fa-sun hidden dark:block text-amber-500 text-lg"></i>
+                    <i id="theme-toggle-moon" class="fas fa-moon block dark:hidden text-lg"></i>
+                </button>
+                <!-- 移动端汉堡菜单按钮 -->
+                <button id="mobile-menu-btn"
+                    class="lg:hidden w-9 h-9 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 inline-flex items-center justify-center">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <!-- 桌面端CTA -->
+                <a href="#contact"
+                    class="hidden lg:inline-block bg-orange-600 hover:bg-orange-700 dark:bg-orange-700 dark:hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-md transition"><i
+                        class="fas fa-calendar-check mr-1"></i> 免费咨询</a>
+            </div>
+        </div>
+
+        <!-- 移动端滑动菜单 (折叠面板形式) -->
+        <div id="mobile-menu"
+            class="lg:hidden hidden bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t border-stone-200 dark:border-stone-700 px-6 py-5 shadow-lg">
+            <div class="flex flex-col gap-4">
+                <a href="#home"
+                    class="py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800">首页</a>
+                <details class="group">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer list-none py-2 text-stone-800 dark:text-stone-200 font-medium">
+                        服务内容
+                        <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
+                    </summary>
+                    <div class="pl-4 mt-2 flex flex-col gap-2 text-stone-600 dark:text-stone-400 text-sm">
+                        <a href="#service-design" class="py-1.5 hover:text-orange-600 transition"><i
+                                class="fas fa-pencil-ruler w-5 mr-2"></i> 设计篇</a>
+                        <a href="#service-construction" class="py-1.5 hover:text-orange-600 transition"><i
+                                class="fas fa-hard-hat w-5 mr-2"></i> 施工篇</a>
+                        <a href="#service-equipment" class="py-1.5 hover:text-orange-600 transition"><i
+                                class="fas fa-microscope w-5 mr-2"></i> 设备篇</a>
+                        <a href="#service-software" class="py-1.5 hover:text-orange-600 transition"><i
+                                class="fas fa-microchip w-5 mr-2"></i> 瑞核系统</a>
+                    </div>
+                </details>
+                <a href="#advantages"
+                    class="py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800">专业优势</a>
+                <a href="#projects"
+                    class="py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800">业绩案例</a>
+                <a href="#news"
+                    class="py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800">新闻资讯</a>
+                <a href="#contact" class="py-2 text-stone-800 dark:text-stone-200 font-medium">联系我们</a>
+                <div class="pt-3">
+                    <a href="#contact"
+                        class="block text-center bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 rounded-full shadow transition">获取方案
+                        <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="overflow-hidden">
+        <!-- ========== 1. 首屏Hero区块 + 背景大图 ========== -->
+        <section id="home" class="relative bg-cover bg-center bg-no-repeat"
+            style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&auto=format'); background-size: cover;">
+            <!-- 深色遮罩层，确保文字可读 -->
+            <div class="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
+            <div
+                class="relative max-w-7xl mx-auto px-6 md:px-10 py-28 md:py-36 flex flex-col lg:flex-row items-center gap-12 z-10">
+                <div class="flex-1 text-center lg:text-left text-white">
+                    <div
+                        class="inline-flex items-center gap-2 bg-orange-600/90 dark:bg-orange-700/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-6 text-white">
+                        <i class="fas fa-flask"></i> 精准医疗 · 核创未来
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
+                        专注核医学场所<br>一站式服务商</h1>
+                    <p class="text-lg text-stone-100 mt-6 max-w-2xl drop-shadow">
+                        从选址规划、辐射防护施工到智慧管理系统，贝瑞医疗为全国顶级医疗机构提供全产业链闭环解决方案，助力精准诊疗时代。</p>
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
+                        <a href="#service-design"
+                            class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-3.5 rounded-full shadow-md transition"><i
+                                class="fas fa-chalkboard-user mr-2"></i> 探索服务</a>
+                        <a href="#contact"
+                            class="border-2 border-white text-white hover:bg-white/20 font-medium px-8 py-3.5 rounded-full transition"><i
+                                class="fas fa-phone-alt mr-2"></i> 联系专家</a>
+                    </div>
+                    <div class="flex flex-wrap gap-6 justify-center lg:justify-start mt-10 text-sm text-stone-100">
+                        <span><i class="fas fa-check-circle text-orange-300 mr-1"></i> 15+年专业团队</span>
+                        <span><i class="fas fa-check-circle text-orange-300 mr-1"></i> 30+成功案例</span>
+                        <span><i class="fas fa-check-circle text-orange-300 mr-1"></i> 全流程GMP合规</span>
+                    </div>
+                </div>
+                <div class="flex-1 hidden lg:block"></div>
+            </div>
+        </section>
+
+        <!-- ========== 2. 企业文化/简介区块（配图横版） ========== -->
+        <section class="py-20 bg-white dark:bg-stone-900">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">精于专业 · 恪于安全 · 诚于客户
+                        </h2>
+                        <p class="text-orange-600 dark:text-orange-400 font-semibold mt-2 flex items-center gap-1"><i
+                                class="fas fa-biohazard"></i> 核医学一站式服务领航者</p>
+                        <p class="text-stone-600 dark:text-stone-400 mt-5 leading-relaxed">
+                            贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。核心团队拥有十年以上知名科研机构与医疗机构经验，匠心铸造每个项目。
+                        </p>
+                        <div class="grid grid-cols-2 gap-5 mt-8">
+                            <div class="flex items-center gap-3"><i
+                                    class="fas fa-drafting-compass text-2xl text-orange-500"></i><span
+                                    class="font-medium">工艺设计/专项施工图</span></div>
+                            <div class="flex items-center gap-3"><i
+                                    class="fas fa-hard-hat text-2xl text-orange-500"></i><span
+                                    class="font-medium">辐射防护施工/三废处理</span></div>
+                            <div class="flex items-center gap-3"><i
+                                    class="fas fa-chart-line text-2xl text-orange-500"></i><span
+                                    class="font-medium">智慧核医学管理系统</span></div>
+                            <div class="flex items-center gap-3"><i
+                                    class="fas fa-hand-holding-heart text-2xl text-orange-500"></i><span
+                                    class="font-medium">7×24h运维检测</span></div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=800&auto=format"
+                            alt="核医学实验室团队" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 3. 服务内容大区块 (设计篇+施工篇+设备篇) ========== -->
+        <section class="py-20 bg-stone-50 dark:bg-stone-800/30 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="text-orange-600 font-semibold text-sm uppercase tracking-wider"><i
+                            class="fas fa-cubes"></i> 闭环服务</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100 mt-2">核医学场所 · 全生命周期解决方案
+                    </h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 mt-16">
+                    <div
+                        class="bg-white dark:bg-stone-800 p-6 rounded-2xl shadow-md border-l-4 border-orange-500 hover:shadow-lg transition">
+                        <i class="fas fa-pencil-ruler text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-stone-800 dark:text-stone-200">设计</h3>
+                        <p class="text-stone-500 dark:text-stone-400 mt-2 text-sm">选址评估 · 布局优化 · 辐射分区 · GMP标准洁净区设计 ·
+                            通风系统独立气流组织</p>
+                        <ul class="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-400">
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 符合GBZ、药品GMP及放射性药品附录</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 衰变池设计/辐射防护优化</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 药监验收一站式技术咨询</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-stone-800 p-6 rounded-2xl shadow-md border-l-4 border-orange-500 scroll-mt-20 hover:shadow-lg transition">
+                        <i class="fas fa-hard-hat text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-stone-800 dark:text-stone-200">施工</h3>
+                        <p class="text-stone-500 dark:text-stone-400 mt-2 text-sm">辐射防护施工 · 放射性废水处理系统 · 多工种协同管理 · 全程驻点
+                        </p>
+                        <ul class="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-400">
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 防护门窗/围护结构/三废处理</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 通过环保验收、职卫控评验收</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 智能衰变池系统（长短半衰期双系）</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-stone-800 p-6 rounded-2xl shadow-md border-l-4 border-orange-500 scroll-mt-20 hover:shadow-lg transition">
+                        <i class="fas fa-microscope text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-stone-800 dark:text-stone-200">设备</h3>
+                        <p class="text-stone-500 dark:text-stone-400 mt-2 text-sm">核素治疗监测 · 辐射监测仪器 · 药物操作热室/手套箱</p>
+                        <ul class="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-400">
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 131I体内活度测量/全身动态辐射显像</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 个人剂量仪/环境监测/活度计CRC-55tR</li>
+                            <li><i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> 放射性废物自动处理系统</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========= 1. 设计篇 · 左图右文区块 ========= -->
+        <section id="service-design" class="py-20 bg-stone-50 dark:bg-stone-800/30 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- 左侧图片区 -->
+                    <div class="rounded-2xl overflow-hidden shadow-xl order-1">
+                        <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&auto=format"
+                            alt="核医学设计规划与布局" class="w-full h-auto object-cover">
+                    </div>
+                    <!-- 右侧内容区 -->
+                    <div class="order-2">
+                        <!-- 标签 -->
+                        <div
+                            class="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 px-4 py-1.5 rounded-full text-sm font-medium mb-5">
+                            <i class="fas fa-pencil-ruler"></i> 精准设计 · 合规先行
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">全流程核医学专项设计
+                        </h2>
+                        <p class="text-stone-600 dark:text-stone-400 mt-4 leading-relaxed">
+                            从选址评估到施工图落地，贝瑞设计团队严格遵循药品GMP、GBZ系列及放射性药品附录，为客户提供功能优化与成本可控的专项设计。</p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-check-circle text-orange-500 mt-1"></i><span>辐射控制区/监督区精细化分区，保障医患安全</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-check-circle text-orange-500 mt-1"></i><span>独立通风系统设计，气流自非放射区→控制区，排气高效过滤</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-check-circle text-orange-500 mt-1"></i><span>衰变池、防护屏蔽、制药区域C级背景局部A级环境设计</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-check-circle text-orange-500 mt-1"></i><span>药监GMP专家检查及环保、卫评验收一站式技术支持</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========= 2. 施工篇 · 右图左文区块 ========= -->
+        <section id="service-construction" class="py-20 bg-white dark:bg-stone-900 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- 左侧内容区 -->
+                    <div class="order-2 lg:order-1">
+                        <div
+                            class="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 px-4 py-1.5 rounded-full text-sm font-medium mb-5">
+                            <i class="fas fa-hard-hat"></i> 匠心施工 · 全程可控
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">辐射防护与净化工程总承包
+                        </h2>
+                        <p class="text-stone-600 dark:text-stone-400 mt-4 leading-relaxed">
+                            多工种交叉协同，驻点管理确保进度与质量。辐射防护门窗、围护结构、三废处理系统一次性通过环保验收及职业病危害控制效果评价。</p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-shield-virus text-orange-500 mt-1"></i><span>防护门窗/铅玻璃/防护涂料施工，满足环评卫评要求</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-water text-orange-500 mt-1"></i><span>智能放射性废水衰变系统（长短半衰期双系）达标排放</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-chart-line text-orange-500 mt-1"></i><span>放射性药物制备净化场所施工，通过药监GMP专家检查</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-clock text-orange-500 mt-1"></i><span>全程项目管理 +
+                                    7×24h运维保障，无缝衔接验收</span></div>
+                        </div>
+                    </div>
+                    <!-- 右侧图片区 -->
+                    <div class="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
+                        <img src="https://pic.rmb.bdstatic.com/04c97f9468b80cd78c7e544410814c90.jpg@h_1280"
+                            alt="核医学辐射防护施工" class="w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========= 3. 设备篇 · 左图右文区块 ========= -->
+        <section id="service-equipment" class="py-20 bg-stone-50 dark:bg-stone-800/30 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- 左侧图片区 -->
+                    <div class="rounded-2xl overflow-hidden shadow-xl order-1">
+                        <img src="https://pic.rmb.bdstatic.com/bjh/3f111378970e/250424/6e215107237788edf56dd4e6baaebf10.jpeg"
+                            alt="核医学监测与防护设备" class="w-full h-auto object-cover">
+                    </div>
+                    <!-- 右侧内容区 -->
+                    <div class="order-2">
+                        <div
+                            class="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 px-4 py-1.5 rounded-full text-sm font-medium mb-5">
+                            <i class="fas fa-microscope"></i> 尖端设备 · 智慧监测
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">核素治疗及辐射监测仪器
+                        </h2>
+                        <p class="text-stone-600 dark:text-stone-400 mt-4 leading-relaxed">
+                            提供从放射性药物操作、分装到患者治疗监测、环境辐射安全的完整设备链，助力核医学科高效合规运行。</p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-syringe text-orange-500 mt-1"></i><span>I-131体内活度测量系统 /
+                                    全身动态辐射显像（Clairvoyant2）</span></div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-radiation text-orange-500 mt-1"></i><span>RadTarge个人剂量仪、RadWal环境辐射监测仪、便携式巡测仪</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-cube text-orange-500 mt-1"></i><span>防护手套箱、合成热室、分装热室、一体化注射防护台</span>
+                            </div>
+                            <div class="flex items-start gap-3"><i
+                                    class="fas fa-flask text-orange-500 mt-1"></i><span>CRC-55tR活度计 / 全自动脚踏式放射性废物箱 /
+                                    转运防护罐</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 瑞核V1.0 智慧管理系统单独高亮区（配图） -->
+        <section id="service-software"
+            class="py-16 bg-gradient-to-r from-orange-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row gap-12 items-center">
+                <div class="flex-1">
+                    <div
+                        class="bg-orange-100 dark:bg-orange-900/30 inline-block px-4 py-1 rounded-full text-orange-700 dark:text-orange-300 text-sm font-medium">
+                        <i class="fas fa-microchip mr-1"></i> 数字孪生 · 智慧中枢
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100 mt-4">瑞核V1.0 核医学智慧管理系统
+                    </h2>
+                    <p class="text-stone-600 dark:text-stone-400 mt-4 text-lg">
+                        1中心+2平台+4维度+N应用，实现设备运行、辐射安全、安防、日常运营全维度管理。物理空间1:1虚拟映射，数据驱动主动预判。</p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-2"><i class="fas fa-chart-simple text-orange-500"></i>
+                            <span>实时辐射监测预警 & 智能决策辅助</span>
+                        </li>
+                        <li class="flex items-center gap-2"><i class="fas fa-database text-orange-500"></i>
+                            <span>设备生命周期管理与预测维护</span>
+                        </li>
+                        <li class="flex items-center gap-2"><i class="fas fa-shield-alt text-orange-500"></i>
+                            <span>符合核医学质控及监管上报标准</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-1 rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&auto=format"
+                        alt="智慧管理系统界面" class="w-full h-auto object-cover">
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 4. 专业优势区块 ========== -->
+        <section id="advantages" class="py-20 bg-white dark:bg-stone-900 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">为什么选择贝瑞医疗</h2>
+                    <p class="text-stone-600 dark:text-stone-400 mt-2">核心技术壁垒 · 深度行业积淀</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center"><i
+                            class="fas fa-chart-line text-4xl text-orange-500 mb-3"></i>
+                        <div class="text-3xl font-bold text-stone-800 dark:text-stone-200">10+</div>
+                        <p class="text-stone-500">四类《放射性药品使用许可证》取证支持</p>
+                    </div>
+                    <div class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center"><i
+                            class="fas fa-users text-4xl text-orange-500 mb-3"></i>
+                        <div class="text-3xl font-bold text-stone-800 dark:text-stone-200">15+年</div>
+                        <p class="text-stone-500">核医学场所专业团队经验</p>
+                    </div>
+                    <div class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center"><i
+                            class="fas fa-building text-4xl text-orange-500 mb-3"></i>
+                        <div class="text-3xl font-bold text-stone-800 dark:text-stone-200">30+</div>
+                        <p class="text-stone-500">医疗机构建设案例</p>
+                    </div>
+                    <div class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center"><i
+                            class="fas fa-file-alt text-4xl text-orange-500 mb-3"></i>
+                        <div class="text-3xl font-bold text-stone-800 dark:text-stone-200">100+</div>
+                        <p class="text-stone-500">核医学方案技术咨询</p>
+                    </div>
+                </div>
+                <div
+                    class="mt-12 bg-stone-100 dark:bg-stone-800/50 p-6 rounded-2xl flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex items-center gap-3"><i
+                            class="fas fa-book-open text-orange-500 text-2xl"></i><span>参编核医学行业规范标准</span></div>
+                    <div class="flex items-center gap-3"><i
+                            class="fas fa-hard-hat text-orange-500 text-2xl"></i><span>擅长复杂场地改造&狭小空间优化</span></div>
+                    <div><span class="bg-orange-600 text-white px-4 py-2 rounded-full text-sm">全流程许可证办理支持</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 5. 业绩案例展示 (部分合作单位 + 横版配图) ========== -->
+        <section id="projects" class="py-20 bg-stone-50 dark:bg-stone-800/40 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">合作案例 · 实力见证</h2>
+                    <p class="text-stone-600 dark:text-stone-400 mt-2">全国顶级医院及科研机构信赖之选</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-12 text-center">
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">复旦大学附属中山医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">陆军军医大学西南医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">南昌大学第一附属医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">福建医科大学附属第一医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">广东省第二人民医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">宜春市人民医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">遵义医科大学附属医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">新疆医科大学附属肿瘤医院</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">国家肿瘤区域医疗中心</span></div>
+                    <div class="bg-white dark:bg-stone-800 p-4 rounded-xl shadow-sm"><span
+                            class="font-semibold">远大医药（中国）</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 6. 新闻资讯列表区块 (全新) ========== -->
+        <section id="news" class="py-20 bg-white dark:bg-stone-900 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">贝瑞动态 · 核医前沿</h2>
+                    <p class="text-stone-600 dark:text-stone-400 mt-2">行业资讯 | 技术突破 | 公司要闻</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- 新闻卡片 1 -->
+                    <div
+                        class="bg-stone-50 dark:bg-stone-800 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format"
+                            alt="核医学学术会议" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div
+                                class="flex items-center gap-2 text-xs text-orange-600 dark:text-orange-400 font-medium">
+                                <i class="far fa-calendar-alt"></i> 2025.03.20 <span class="text-stone-400">•</span> <i
+                                    class="far fa-newspaper"></i> 行业峰会
+                            </div>
+                            <h3 class="text-xl font-bold text-stone-800 dark:text-stone-200 mt-2">
+                                贝瑞医疗助力全国核医学学术年会，共话精准诊疗新基建</h3>
+                            <p class="text-stone-600 dark:text-stone-400 mt-2 text-sm">
+                                公司携瑞核V1.0系统及全流程辐射防护方案亮相年会，获得多家三甲医院高度关注。</p>
+                            <a href="#"
+                                class="inline-flex items-center gap-1 text-orange-600 dark:text-orange-400 font-medium mt-4 text-sm hover:gap-2 transition">阅读全文
+                                →</a>
+                        </div>
+                    </div>
+                    <!-- 新闻卡片 2 -->
+                    <div
+                        class="bg-stone-50 dark:bg-stone-800 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&auto=format"
+                            alt="放射性药物研发" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div
+                                class="flex items-center gap-2 text-xs text-orange-600 dark:text-orange-400 font-medium">
+                                <i class="far fa-calendar-alt"></i> 2025.02.10 <span class="text-stone-400">•</span> <i
+                                    class="fas fa-flask"></i> 技术突破
+                            </div>
+                            <h3 class="text-xl font-bold text-stone-800 dark:text-stone-200 mt-2">
+                                新型Lu-177标记药物研发支持：贝瑞提供GMP级热室解决方案</h3>
+                            <p class="text-stone-600 dark:text-stone-400 mt-2 text-sm">公司为多家药企定制放射性药物合成热室，助力创新核药快速临床转化。
+                            </p>
+                            <a href="#"
+                                class="inline-flex items-center gap-1 text-orange-600 dark:text-orange-400 font-medium mt-4 text-sm hover:gap-2 transition">阅读全文
+                                →</a>
+                        </div>
+                    </div>
+                    <!-- 新闻卡片 3 -->
+                    <div
+                        class="bg-stone-50 dark:bg-stone-800 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format"
+                            alt="核医学智慧管理" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div
+                                class="flex items-center gap-2 text-xs text-orange-600 dark:text-orange-400 font-medium">
+                                <i class="far fa-calendar-alt"></i> 2025.01.15 <span class="text-stone-400">•</span> <i
+                                    class="fas fa-microchip"></i> 智慧升级
+                            </div>
+                            <h3 class="text-xl font-bold text-stone-800 dark:text-stone-200 mt-2">
+                                瑞核V1.2版本发布，新增辐射剂量数字孪生预演模块</h3>
+                            <p class="text-stone-600 dark:text-stone-400 mt-2 text-sm">实现核医学科辐射防护动态模拟与人员路径优化，安全效能双提升。
+                            </p>
+                            <a href="#"
+                                class="inline-flex items-center gap-1 text-orange-600 dark:text-orange-400 font-medium mt-4 text-sm hover:gap-2 transition">阅读全文
+                                →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#"
+                        class="inline-flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 px-6 py-3 rounded-full transition">查看全部新闻
+                        <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 7. 联系区块 (不含留言板，仅展示联系方式) ========== -->
+        <section id="contact" class="py-20 bg-stone-50 dark:bg-stone-800/40 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden shadow-xl order-2 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1656646424763-145e4956a416?w=800&auto=format"
+                        alt="贝瑞医疗办公环境" class="w-full h-auto object-cover">
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">联系贝瑞医疗专家团队</h2>
+                    <p class="text-stone-600 dark:text-stone-400 mt-3">立即沟通，获取核医学场所建设一站式解决方案。</p>
+                    <div class="mt-8 space-y-5">
+                        <div class="flex items-center gap-4"><i
+                                class="fas fa-phone-alt w-7 text-orange-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium">联系电话</p>
+                                <p class="text-stone-700 dark:text-stone-300">18503878846 &nbsp; 13215991477</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4"><i class="fas fa-envelope w-7 text-orange-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium">电子邮箱</p>
+                                <p class="text-stone-700 dark:text-stone-300">530051528@qq.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4"><i class="fas fa-globe w-7 text-orange-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium">官方网站</p>
+                                <p class="text-stone-700 dark:text-stone-300">http://www.berrymedical.com.cn</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4"><i
+                                class="fas fa-map-marker-alt w-7 text-orange-500 text-xl"></i>
+                            <div>
+                                <p class="font-medium">公司地址</p>
+                                <p class="text-stone-700 dark:text-stone-300">郑州市高新技术产业开发区瑞达路睿达广场1栋14层</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex gap-4">
+                        <a href="tel:18503878846"
+                            class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"><i
+                                class="fas fa-phone"></i> 一键致电</a>
+                        <a href="mailto:530051528@qq.com"
+                            class="border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium px-6 py-3 rounded-full transition"><i
+                                class="fas fa-envelope"></i> 发送邮件</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA 底部 -->
+        <section class="bg-orange-600 dark:bg-orange-800 py-16">
+            <div class="max-w-4xl mx-auto text-center px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">赋能精准医疗 · 共建核医学科标杆</h2>
+                <p class="text-orange-100 text-lg mt-3">从设计到验收，贝瑞医疗让核医学场所建设更专业、更安全。</p>
+                <div class="flex flex-wrap gap-4 justify-center mt-8"><a href="#contact"
+                        class="bg-white text-orange-600 hover:bg-stone-100 font-semibold px-8 py-3 rounded-full shadow-lg transition"><i
+                            class="fas fa-headset"></i> 立即咨询专家</a><a href="tel:18503878846"
+                        class="border-2 border-white text-white hover:bg-orange-700 px-8 py-3 rounded-full transition"><i
+                            class="fas fa-phone"></i> 电话联系</a></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-100 dark:bg-stone-800 border-t border-stone-200 dark:border-stone-700 py-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 text-center text-stone-500 dark:text-stone-400 text-sm">
+            <p>© 2025 贝瑞医疗科技（郑州）有限公司 | 核医学一站式服务 | 精于专业 恪于安全 诚于客户</p>
+            <p class="mt-1 text-xs"><i class="fas fa-leaf"></i> 助力健康中国 · 核医学基础设施引领者</p>
+        </div>
+    </footer>
+
+    <!-- 主题切换 + 移动菜单 JS (默认浅色模式) -->
+    <script>
+            (function () {
+                const toggleBtn = document.getElementById('theme-toggle');
+                const html = document.documentElement;
+                let stored = localStorage.getItem('theme');
+                // 默认浅色模式
+                if (!stored) {
+                    stored = 'light';
+                    localStorage.setItem('theme', 'light');
+                }
+                if (stored === 'dark') html.classList.add('dark');
+                else html.classList.remove('dark');
+
+                toggleBtn.addEventListener('click', () => {
+                    if (html.classList.contains('dark')) {
+                        html.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        html.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            })();
+
+        // 移动端菜单逻辑
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) mobileMenu.classList.add('hidden');
+            });
+        }
+        // 锚点平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === "#" || targetId === "") return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
