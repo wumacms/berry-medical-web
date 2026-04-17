@@ -19,42 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import type { NewsItem } from '~/types/news'
-
-defineProps<{
-  latestNews?: NewsItem[]
+const props = defineProps<{
+  latestNews?: any[]
 }>()
 
-// 默认新闻数据
-const defaultNews: NewsItem[] = [
-  {
-    id: '1',
-    title: '贝瑞医疗助力全国核医学学术年会，共话精准诊疗新基建',
-    excerpt: '公司携瑞核V1.0系统及全流程辐射防护方案亮相年会，获得多家三甲医院高度关注。',
-    date: '2025.03.20',
-    category: '行业峰会',
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format',
-    views: 1245
-  },
-  {
-    id: '2',
-    title: '新型Lu-177标记药物研发支持：贝瑞提供GMP级热室解决方案',
-    excerpt: '公司为多家药企定制放射性药物合成热室，助力创新核药快速临床转化。',
-    date: '2025.02.10',
-    category: '技术突破',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&auto=format',
-    views: 876
-  },
-  {
-    id: '3',
-    title: '瑞核V1.2版本发布，新增辐射剂量数字孪生预演模块',
-    excerpt: '实现核医学科辐射防护动态模拟与人员路径优化，安全效能双提升。',
-    date: '2025.01.15',
-    category: '智慧升级',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format',
-    views: 1023
-  }
-]
+// 使用 composable 获取新闻数据
+const { latestNews: newsFromData } = useNews()
 
-const latestNews = defaultNews
+// 优先使用 props，否则使用数据文件中的数据
+const latestNews = computed(() => props.latestNews || newsFromData.value)
 </script>

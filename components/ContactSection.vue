@@ -18,28 +18,28 @@
             <i class="fas fa-phone-alt w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">联系电话</p>
-              <p class="text-stone-700 dark:text-stone-300">18503878846 &nbsp; 13215991477</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contact.phone.join(' &nbsp; ') }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-envelope w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">电子邮箱</p>
-              <p class="text-stone-700 dark:text-stone-300">530051528@qq.com</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contact.email }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-globe w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">官方网站</p>
-              <p class="text-stone-700 dark:text-stone-300">http://www.berrymedical.com.cn</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contact.url || 'http://www.berrymedical.com.cn' }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-map-marker-alt w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">公司地址</p>
-              <p class="text-stone-700 dark:text-stone-300">郑州市高新技术产业开发区瑞达路睿达广场1栋14层</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contact.address.province }}{{ contact.address.city }}{{ contact.address.street }}</p>
             </div>
           </div>
         </div>
@@ -57,5 +57,5 @@
 </template>
 
 <script setup lang="ts">
-// Contact Section Component
+const { contact } = useSiteConfig()
 </script>
