@@ -5,6 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# 需要仓库拥有 Pages 功能的 GitHub Enterprise 或付费组织
+# 免费账户使用 github.io 域名需要从用户/组织仓库部署
 permissions:
   contents: read
   pages: write
@@ -33,12 +35,13 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        env:
-          NUXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
         run: pnpm run generate
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -46,11 +49,11 @@ jobs:
           path: .output/public
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
