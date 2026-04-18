@@ -39,7 +39,7 @@ jobs:
       # 从 Supabase 获取数据
       # ============================================
       - name: Fetch data from Supabase
-        run: node scripts/fetch-supabase-data.ts
+        run: pnpm run fetch-data
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
