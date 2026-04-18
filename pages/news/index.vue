@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 暗色背景标题区块 -->
-    <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-28" style="background-image: url('/images/news/cover-1.jpg');">
+    <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-28" :style="{ backgroundImage: `url('${getImageUrl('/images/news/cover-1.jpg')}')` }">
       <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/85 to-stone-900/70 dark:from-black dark:via-stone-950/90 dark:to-stone-900/80"></div>
       <div class="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-transparent to-stone-950/50 pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6 md:px-10 z-10">
@@ -183,4 +183,6 @@ const filteredNews = computed(() => {
   }
   return newsList.filter(news => news.category === activeCategory.value)
 })
+
+const { getImageUrl } = useCdnUrl()
 </script>
