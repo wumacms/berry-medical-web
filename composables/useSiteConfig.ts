@@ -25,6 +25,21 @@ export function useSiteConfig() {
   const slogan = computed(() => siteConfig.slogan)
   const contact = computed(() => siteConfig.contact)
   const url = computed(() => siteConfig.url)
+  const icp = computed(() => siteConfig.icp)
+
+  // 各区块内容
+  const hero = computed(() => siteConfig.hero)
+  const about = computed(() => siteConfig.about)
+  const advantages = computed(() => siteConfig.advantages)
+  const services = computed(() => siteConfig.services)
+  const news = computed(() => siteConfig.news)
+  const contactInfo = computed(() => ({
+    title: siteConfig.contactSection.title,
+    description: siteConfig.contactSection.description,
+    contact: siteConfig.contact
+  }))
+  const cta = computed(() => siteConfig.cta)
+  const footer = computed(() => siteConfig.footer)
 
   return {
     config,
@@ -33,7 +48,16 @@ export function useSiteConfig() {
     companyName,
     slogan,
     contact,
-    url
+    contactInfo,
+    url,
+    icp,
+    hero,
+    about,
+    advantages,
+    services,
+    news,
+    cta,
+    footer
   }
 }
 

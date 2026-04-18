@@ -14,8 +14,8 @@
         </h1>
         <!-- 发布日期 & 阅读时间 -->
         <div class="flex items-center justify-center gap-5 text-stone-300 text-sm mt-6">
-          <span><i class="far fa-calendar-alt mr-1"></i> {{ article.date }}</span>
-          <span><i class="far fa-clock mr-1"></i> 约 {{ article.readingTime }}</span>
+          <span><i class="far fa-calendar-alt mr-1"></i> {{ formatDate(article.date) }}</span>
+          <span><i class="far fa-clock mr-1"></i> 约 {{ article.readingTime || '3 分钟' }}</span>
           <span><i class="far fa-eye mr-1"></i> {{ article.views }} 次阅读</span>
         </div>
       </div>
@@ -55,27 +55,49 @@
       <div class="max-w-4xl mx-auto px-6 md:px-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- 上一篇 -->
-          <NuxtLink v-if="article.prevNews" :to="`/news/${article.prevNews.id}`" class="group flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-stone-800/80 shadow-sm hover:shadow-md transition border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-600">
+          <NuxtLink 
+            v-if="prevNews" 
+            :to="`/news/${prevNews.id}`" 
+            class="group flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-stone-800/80 shadow-sm hover:shadow-md transition border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-600"
+          >
             <div class="text-orange-500 dark:text-orange-400 text-xl"><i class="fas fa-arrow-left"></i></div>
             <div class="flex-1">
               <p class="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-wider">上一篇</p>
               <h4 class="font-semibold text-stone-800 dark:text-stone-200 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition line-clamp-2">
-                {{ article.prevNews.title }}
+                {{ prevNews.title }}
               </h4>
-              <p class="text-xs text-stone-400 dark:text-stone-500 mt-1">{{ article.prevNews.date }}</p>
+              <p class="text-xs text-stone-400 dark:text-stone-500 mt-1">{{ formatDate(prevNews.date) }}</p>
             </div>
           </NuxtLink>
+          <div v-else class="flex items-start gap-4 p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 opacity-60">
+            <div class="text-stone-400 text-xl"><i class="fas fa-arrow-left"></i></div>
+            <div class="flex-1">
+              <p class="text-xs text-stone-400 uppercase tracking-wider">上一篇</p>
+              <h4 class="font-semibold text-stone-400 line-clamp-2">没有更多文章了</h4>
+            </div>
+          </div>
           <!-- 下一篇 -->
-          <NuxtLink v-if="article.nextNews" :to="`/news/${article.nextNews.id}`" class="group flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-stone-800/80 shadow-sm hover:shadow-md transition border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-600 md:text-right">
+          <NuxtLink 
+            v-if="nextNews" 
+            :to="`/news/${nextNews.id}`" 
+            class="group flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-stone-800/80 shadow-sm hover:shadow-md transition border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-600 md:text-right"
+          >
             <div class="flex-1">
               <p class="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-wider">下一篇</p>
               <h4 class="font-semibold text-stone-800 dark:text-stone-200 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition line-clamp-2">
-                {{ article.nextNews.title }}
+                {{ nextNews.title }}
               </h4>
-              <p class="text-xs text-stone-400 dark:text-stone-500 mt-1">{{ article.nextNews.date }}</p>
+              <p class="text-xs text-stone-400 dark:text-stone-500 mt-1">{{ formatDate(nextNews.date) }}</p>
             </div>
             <div class="text-orange-500 dark:text-orange-400 text-xl"><i class="fas fa-arrow-right"></i></div>
           </NuxtLink>
+          <div v-else class="flex items-start gap-4 p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700 opacity-60 md:text-right">
+            <div class="flex-1">
+              <p class="text-xs text-stone-400 uppercase tracking-wider">下一篇</p>
+              <h4 class="font-semibold text-stone-400 line-clamp-2">没有更多文章了</h4>
+            </div>
+            <div class="text-stone-400 text-xl"><i class="fas fa-arrow-right"></i></div>
+          </div>
         </div>
         <!-- 返回列表按钮 -->
         <div class="text-center mt-10">
@@ -89,113 +111,54 @@
 </template>
 
 <script setup lang="ts">
-import type { NewsItem } from '~/types/news'
-
 const route = useRoute()
 const newsId = route.params.id as string
 const { getImageUrl } = useCdnUrl()
+const { allNews, getNewsById } = useNews()
 
 // 获取文章数据
-const baseURL = useRuntimeConfig().app.baseURL || ''
-const article = computed<NewsItem>(() => {
-  const articles: Record<string, NewsItem> = {
-    '1': {
-      id: '1',
-      title: '贝瑞医疗携瑞核V1.2亮相全国核医学年会，数字孪生成焦点',
-      excerpt: '在2025年全国核医学学术年会上，贝瑞医疗展示了全新升级的瑞核智慧管理系统，通过数字孪生技术实现辐射防护预演，吸引数百位专家驻足交流。',
-      date: '2025年4月18日',
-      category: '公司要闻',
-      image: '/images/news/cover-1.jpg',
-      views: 1245,
-      readingTime: '5 分钟',
-      tags: ['全国核医学年会', '数字孪生', '瑞核V1.2', '智慧管理'],
-      content: `
-        <p>2025年全国核医学学术年会于4月15日至18日在上海国际会议中心成功举办。作为国内领先的核医学场所建设一站式服务商，贝瑞医疗携全新升级的瑞核V1.2智慧管理系统精彩亮相，引发业界广泛关注。</p>
-        <h2>数字孪生技术引领行业创新</h2>
-        <p>本次年会上，贝瑞医疗重点展示的瑞核V1.2系统采用先进的数字孪生技术，能够1:1还原核医学科物理空间，实现辐射防护动态模拟与人员路径优化。现场演示环节，数百位来自全国各地的核医学专家驻足交流，对系统的前瞻性功能给予高度评价。</p>
-        <img src="__CDN_PATH__/images/news/exhibition.jpg" alt="贝瑞医疗展位现场" class="rounded-xl shadow-md my-6 w-full">
-        <p class="text-sm text-stone-500 dark:text-stone-400 text-center -mt-4 mb-6">贝瑞医疗年会展位现场</p>
-        <h2>全流程解决方案获专家认可</h2>
-        <p>除智慧管理系统外，贝瑞医疗还展示了从选址规划、辐射防护施工到设备供应的全产业链解决方案。多位三甲医院核医学科主任表示，贝瑞医疗的一站式服务模式极大地简化了项目建设流程，值得推广。</p>
-        <p>贝瑞医疗将继续深耕核医学领域，以技术创新驱动行业发展，为更多医疗机构提供专业、高效、安全的核医学场所建设服务。</p>
-      `,
-      prevNews: {
-        id: '6',
-        title: '贝瑞医疗与芬兰核医学中心达成战略合作',
-        date: '2025年2月20日'
-      },
-      nextNews: {
-        id: '2',
-        title: '助力核药创新：贝瑞为多家药企定制GMP级热室',
-        date: '2025年4月10日'
-      }
-    },
-    '2': {
-      id: '2',
-      title: '助力核药创新：贝瑞为多家药企定制GMP级热室，加速Lu-177临床转化',
-      excerpt: '公司放射性药物设备事业部宣布，已为国内三家创新药企提供符合cGMP标准的热室及分装系统，推动靶向放射性核素治疗药物上市进程。',
-      date: '2025年4月10日',
-      category: '技术突破',
-      image: '/images/news/cover-2.jpg',
-      views: 876,
-      readingTime: '4 分钟',
-      tags: ['Lu-177', 'GMP热室', '放射性药物', '临床转化'],
-      content: `
-        <p>随着靶向放射性核素治疗（Theranostics）在国内快速发展，符合GMP标准的放射性药物制备设施需求日益增长。贝瑞医疗放射性药物设备事业部近日宣布，已成功为国内三家创新药企提供定制化的cGMP热室及分装系统。</p>
-        <h2>定制化解决方案</h2>
-        <p>针对不同药企的药物研发管线，贝瑞医疗技术团队提供了从设计咨询、设备选型到安装验证的全流程服务。系统涵盖合成热室、分装热室、通风净化及辐射监测等核心模块，完全满足FDA及NMPA的GMP要求。</p>
-        <h2>加速Lu-177临床转化</h2>
-        <p>特别值得一提的是，贝瑞医疗为多家药企定制的Lu-177标记药物制备系统已进入验证阶段，预计将于今年下半年投入临床使用。这将极大推动国产创新核药的上市进程，惠及更多肿瘤患者。</p>
-      `,
-      prevNews: {
-        id: '1',
-        title: '贝瑞医疗携瑞核V1.2亮相全国核医学年会',
-        date: '2025年4月18日'
-      },
-      nextNews: {
-        id: '3',
-        title: '新版《核医学辐射防护标准》解读',
-        date: '2025年3月28日'
-      }
-    },
-    '3': {
-      id: '3',
-      title: '瑞核V1.2版本发布：新增辐射剂量数字孪生预演模块，重塑核医学科安全边界',
-      excerpt: '贝瑞医疗自主研发的瑞核智慧管理系统迎来重大升级，通过数字孪生技术实现辐射防护动态模拟与人员路径优化，为核医学科安全效能带来双重提升。',
-      date: '2025年1月15日',
-      category: '技术突破',
-      image: '/images/news/cover-3.jpg',
-      views: 1023,
-      readingTime: '6 分钟',
-      tags: ['数字孪生', '辐射防护', '瑞核V1.2', '智慧管理'],
-      content: `
-        <p>贝瑞医疗自主研发的瑞核智慧管理系统迎来重大升级，通过数字孪生技术实现辐射防护动态模拟与人员路径优化，为核医学科安全效能带来双重提升。</p>
-        <h2>数字孪生：让辐射防护"可见、可预演"</h2>
-        <p>瑞核V1.2基于1:1物理空间建模，集成实时辐射监测数据与人员定位系统，可模拟不同操作流程下的辐射剂量分布。医院管理人员可在虚拟环境中预演药物分装、患者注射等场景，提前识别高风险区域并优化工作动线。</p>
-        <h2>主动预判：从"事后报警"到"事前规避"</h2>
-        <p>传统辐射监测多为阈值报警，而瑞核V1.2利用机器学习算法，基于历史数据和实时流量预测潜在超限风险。系统可提前15分钟发出预警，并自动联动通风、门禁等设备，将安全管控关口大幅前移。</p>
-      `,
-      prevNews: {
-        id: '2',
-        title: '助力核药创新：贝瑞为多家药企定制GMP级热室',
-        date: '2025年4月10日'
-      },
-      nextNews: {
-        id: '4',
-        title: '瑞核V1.0荣获医疗信息化创新金奖',
-        date: '2025年3月15日'
-      }
-    }
+const article = computed(() => {
+  return getNewsById(newsId) || allNews.value[0] || {
+    id: '',
+    title: '文章未找到',
+    excerpt: '',
+    date: '',
+    category: '',
+    image: '/images/news/cover-1.jpg',
+    views: 0,
+    tags: [],
+    content: ''
   }
-  
-  return articles[newsId] || articles['1']
 })
 
 // 处理 content 中的图片路径
+const baseURL = useRuntimeConfig().app.baseURL || ''
 const processedContent = computed(() => {
   if (!article.value.content) return ''
   return article.value.content.replace(/__CDN_PATH__/g, baseURL.replace(/\/$/, ''))
 })
+
+// 获取上一篇和下一篇
+const currentIndex = computed(() => {
+  return allNews.value.findIndex(n => n.id === newsId)
+})
+
+const prevNews = computed(() => {
+  const idx = currentIndex.value
+  return idx > 0 ? allNews.value[idx - 1] : null
+})
+
+const nextNews = computed(() => {
+  const idx = currentIndex.value
+  return idx < allNews.value.length - 1 ? allNews.value[idx + 1] : null
+})
+
+// 格式化日期
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+}
 
 // SEO 配置
 useSeoMeta({
@@ -204,9 +167,7 @@ useSeoMeta({
   keywords: article.value.tags?.join(','),
   ogTitle: article.value.title,
   ogDescription: article.value.excerpt,
-  ogType: 'article',
-  articlePublishedTime: article.value.date,
-  articleSection: article.value.category
+  ogType: 'article'
 })
 
 // 结构化数据 - Article
@@ -229,7 +190,7 @@ useHead({
         name: '贝瑞医疗科技',
         logo: {
           '@type': 'ImageObject',
-          url: 'http://www.berrymedical.com.cn/favicon.svg'
+          url: `${baseURL}/favicon.svg`
         }
       }
     })

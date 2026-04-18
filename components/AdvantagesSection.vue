@@ -3,8 +3,8 @@
   <section id="advantages" class="py-20 bg-white dark:bg-stone-900 scroll-mt-20">
     <div class="max-w-7xl mx-auto px-6 md:px-10">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">为什么选择贝瑞医疗</h2>
-        <p class="text-stone-600 dark:text-stone-400 mt-2">核心技术壁垒 · 深度行业积淀</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">{{ advantages.title }}</h2>
+        <p class="text-stone-600 dark:text-stone-400 mt-2">{{ advantages.subtitle }}</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div v-for="(item, index) in advantageList" :key="index" class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center">
@@ -19,4 +19,5 @@
 
 <script setup lang="ts">
 const { advantageList } = useAdvantages()
+const { advantages } = useSiteConfig()
 </script>

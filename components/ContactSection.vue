@@ -11,43 +11,43 @@
         >
       </div>
       <div class="order-1 md:order-2">
-        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">联系贝瑞医疗专家团队</h2>
-        <p class="text-stone-600 dark:text-stone-400 mt-3">立即沟通，获取核医学场所建设一站式解决方案。</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100">{{ contactInfo.title }}</h2>
+        <p class="text-stone-600 dark:text-stone-400 mt-3">{{ contactInfo.description }}</p>
         <div class="mt-8 space-y-5">
           <div class="flex items-center gap-4">
             <i class="fas fa-phone-alt w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">联系电话</p>
-              <p class="text-stone-700 dark:text-stone-300">{{ contact.phone.join(' &nbsp; ') }}</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contactInfo.contact.phone.join(' &nbsp; ') }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-envelope w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">电子邮箱</p>
-              <p class="text-stone-700 dark:text-stone-300">{{ contact.email }}</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contactInfo.contact.email }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-globe w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">官方网站</p>
-              <p class="text-stone-700 dark:text-stone-300">{{ contact.url || 'http://www.berrymedical.com.cn' }}</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contactInfo.contact.website }}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <i class="fas fa-map-marker-alt w-7 text-orange-500 text-xl"></i>
             <div>
               <p class="font-medium">公司地址</p>
-              <p class="text-stone-700 dark:text-stone-300">{{ contact.address.province }}{{ contact.address.city }}{{ contact.address.street }}</p>
+              <p class="text-stone-700 dark:text-stone-300">{{ contactInfo.contact.address.province }}{{ contactInfo.contact.address.city }}{{ contactInfo.contact.address.street }}</p>
             </div>
           </div>
         </div>
         <div class="mt-8 flex gap-4">
-          <a href="tel:18503878846" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-full shadow transition">
+          <a :href="`tel:${contactInfo.contact.phone[0]}`" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-full shadow transition">
             <i class="fas fa-phone"></i> 一键致电
           </a>
-          <a href="mailto:530051528@qq.com" class="border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium px-6 py-3 rounded-full transition">
+          <a :href="`mailto:${contactInfo.contact.email}`" class="border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-medium px-6 py-3 rounded-full transition">
             <i class="fas fa-envelope"></i> 发送邮件
           </a>
         </div>
@@ -57,6 +57,6 @@
 </template>
 
 <script setup lang="ts">
-const { contact } = useSiteConfig()
+const { contactInfo } = useSiteConfig()
 const { getImageUrl } = useCdnUrl()
 </script>

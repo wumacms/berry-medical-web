@@ -9,6 +9,7 @@
  *   SUPABASE_SERVICE_ROLE_KEY - 服务角色密钥
  */
 
+import 'dotenv/config'
 import { createClient } from '@supabase/supabase-js'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -54,15 +55,53 @@ interface SiteConfig {
   slogan: string | null
   description: string | null
   logo: string | null
+  url: string | null
+  icp: string | null
   contact: {
     phone?: string[]
     email?: string
+    website?: string
     address?: {
       province?: string
       city?: string
       street?: string
       postalCode?: string
     }
+  }
+  hero: {
+    badge?: string
+    title?: string
+    description?: string
+    tags?: string[]
+  }
+  about: {
+    title?: string
+    subtitle?: string
+    description?: string
+    features?: { icon: string; text: string }[]
+  }
+  advantages: {
+    title?: string
+    subtitle?: string
+  }
+  services: {
+    title?: string
+    subtitle?: string
+  }
+  news: {
+    title?: string
+    subtitle?: string
+  }
+  contact_info: {
+    title?: string
+    description?: string
+  }
+  cta: {
+    title?: string
+    description?: string
+  }
+  footer: {
+    description?: string
   }
   seo: {
     title?: string
@@ -163,14 +202,25 @@ async function fetchData(): Promise<void> {
     }))
 
     // 处理网站配置
-    const processedSiteConfig = siteConfig ? {
-      name: siteConfig.name || '贝瑞医疗',
-      companyName: siteConfig.company_name || '',
-      slogan: siteConfig.slogan || '',
-      description: siteConfig.description || '',
-      logo: siteConfig.logo || '',
-      contact: siteConfig.contact || {},
-      seo: siteConfig.seo || {}
+    const config = siteConfig as SiteConfig
+    const processedSiteConfig = config ? {
+      name: config.name || '贝瑞医疗',
+      companyName: config.company_name || '',
+      slogan: config.slogan || '',
+      description: config.description || '',
+      logo: config.logo || '',
+      url: config.url || '',
+      icp: config.icp || '',
+      contact: config.contact || {},
+      hero: config.hero || {},
+      about: config.about || {},
+      advantages: config.advantages || {},
+      services: config.services || {},
+      news: config.news || {},
+      contactSection: config.contact_info || {},
+      cta: config.cta || {},
+      footer: config.footer || {},
+      seo: config.seo || {}
     } : null
 
     // 写入 JSON 文件

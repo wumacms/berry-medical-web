@@ -8,9 +8,12 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "fetch-data": "node scripts/fetch-supabase-data.ts",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.103.3",
+    "dotenv": "^17.4.2",
     "nuxt": "^3.17.4",
     "vue": "^3.5.32",
     "vue-router": "^4.5.1"

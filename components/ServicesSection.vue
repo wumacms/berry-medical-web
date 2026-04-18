@@ -4,10 +4,10 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10">
       <div class="text-center max-w-3xl mx-auto">
         <span class="text-orange-600 font-semibold text-sm uppercase tracking-wider">
-          <i class="fas fa-cubes"></i> 闭环服务
+          <i class="fas fa-cubes"></i> {{ services.subtitle }}
         </span>
         <h2 class="text-3xl md:text-4xl font-bold text-stone-800 dark:text-stone-100 mt-2">
-          核医学场所 · 全生命周期解决方案
+          {{ services.title }}
         </h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8 mt-16">
@@ -34,4 +34,5 @@
 
 <script setup lang="ts">
 const { overviewList } = useServices()
+const { services } = useSiteConfig()
 </script>

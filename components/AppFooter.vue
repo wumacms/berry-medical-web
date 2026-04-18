@@ -10,23 +10,23 @@
                     alt="贝瑞医疗" 
                     class="h-10 w-auto mb-4"
                   >
-                  <p class="text-sm text-stone-400 leading-relaxed">专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。</p>
+                  <p class="text-sm text-stone-400 leading-relaxed">{{ footer.description }}</p>
               </div>
               <!-- 公司地址 -->
               <div>
                   <h4 class="text-white font-semibold mb-4">公司地址</h4>
                   <address class="not-italic text-sm text-stone-400 leading-relaxed">
-                      郑州市高新技术产业开发区瑞达路睿达广场1栋14层<br>
-                      邮编：450001
+                      {{ contact.address.street }}<br>
+                      邮编：{{ contact.address.postalCode }}
                   </address>
               </div>
               <!-- 联系方式 -->
               <div>
                   <h4 class="text-white font-semibold mb-4">联系方式</h4>
                   <ul class="space-y-2 text-sm text-stone-400">
-                      <li><i class="fas fa-phone-alt w-5 text-orange-500"></i> 电话：18503878846 或 13215991477</li>
-                      <li><i class="fas fa-envelope w-5 text-orange-500"></i> 邮箱：530051528@qq.com</li>
-                      <li><i class="fas fa-globe w-5 text-orange-500"></i> 官网：www.berrymedical.com.cn</li>
+                      <li><i class="fas fa-phone-alt w-5 text-orange-500"></i> 电话：{{ contact.phone.join(' 或 ') }}</li>
+                      <li><i class="fas fa-envelope w-5 text-orange-500"></i> 邮箱：{{ contact.email }}</li>
+                      <li><i class="fas fa-globe w-5 text-orange-500"></i> 官网：{{ contact.website }}</li>
                   </ul>
               </div>
               <!-- 微信公众号二维码 -->
@@ -56,7 +56,7 @@
           </div>
           <!-- 底部备案信息 -->
           <div class="border-t border-stone-800 mt-12 pt-6 text-center text-xs text-stone-500">
-              <p>© 2025 贝瑞医疗科技（郑州）有限公司 版权所有 | 豫ICP备2025123456号</p>
+              <p>© {{ new Date().getFullYear() }} {{ companyName }} 版权所有 | {{ icp }}</p>
           </div>
       </div>
   </footer>
@@ -64,4 +64,5 @@
 
 <script setup lang="ts">
 const { getImageUrl } = useCdnUrl()
+const { footer, contact, companyName, icp } = useSiteConfig()
 </script>

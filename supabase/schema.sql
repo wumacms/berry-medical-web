@@ -68,7 +68,17 @@ CREATE TABLE IF NOT EXISTS site_config (
   slogan TEXT,
   description TEXT,
   logo TEXT,
+  url TEXT,
+  icp TEXT,
   contact JSONB DEFAULT '{}',
+  hero JSONB DEFAULT '{}',
+  about JSONB DEFAULT '{}',
+  advantages JSONB DEFAULT '{}',
+  services JSONB DEFAULT '{}',
+  news JSONB DEFAULT '{}',
+  contact_info JSONB DEFAULT '{}',
+  cta JSONB DEFAULT '{}',
+  footer JSONB DEFAULT '{}',
   seo JSONB DEFAULT '{}',
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -197,22 +207,65 @@ INSERT INTO advantages (value, label, description, sort_order) VALUES
 ('100+', '核医学方案技术咨询', '核医学方案技术咨询', 4);
 
 -- 插入网站配置
-INSERT INTO site_config (id, name, company_name, slogan, description, logo, contact, seo) VALUES (
+INSERT INTO site_config (id, name, company_name, slogan, description, logo, url, icp, contact, hero, about, advantages, services, news, contact_info, cta, footer, seo) VALUES (
   'main',
   '贝瑞医疗',
   '贝瑞医疗科技（郑州）有限公司',
   '核医学场所建设一站式服务商',
   '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。',
   '/images/logos/logo.png',
+  'https://wumacms.github.io/berry-medical-nuxt',
+  '豫ICP备2025123456号',
   '{
     "phone": ["18503878846", "13215991477"],
     "email": "530051528@qq.com",
+    "website": "www.berrymedical.com.cn",
     "address": {
       "province": "河南省",
       "city": "郑州市",
       "street": "高新技术产业开发区瑞达路睿达广场1栋14层",
-      "postalCode": "450000"
+      "postalCode": "450001"
     }
+  }'::jsonb,
+  '{
+    "badge": "精准医疗 · 核创未来",
+    "title": "专注核医学场所\n一站式服务商",
+    "description": "从选址规划、辐射防护施工到智慧管理系统，贝瑞医疗为全国顶级医疗机构提供全产业链闭环解决方案，助力精准诊疗时代。",
+    "tags": ["15+年专业团队", "30+成功案例", "全流程GMP合规"]
+  }'::jsonb,
+  '{
+    "title": "精于专业 · 恪于安全 · 诚于客户",
+    "subtitle": "核医学一站式服务领航者",
+    "description": "贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。核心团队拥有十年以上知名科研机构与医疗机构经验，匠心铸造每个项目。",
+    "features": [
+      {"icon": "fa-drafting-compass", "text": "工艺设计/专项施工图"},
+      {"icon": "fa-hard-hat", "text": "辐射防护施工/三废处理"},
+      {"icon": "fa-chart-line", "text": "智慧核医学管理系统"},
+      {"icon": "fa-hand-holding-heart", "text": "7×24h运维检测"}
+    ]
+  }'::jsonb,
+  '{
+    "title": "为什么选择贝瑞医疗",
+    "subtitle": "核心技术壁垒 · 深度行业积淀"
+  }'::jsonb,
+  '{
+    "title": "核医学场所 · 全生命周期解决方案",
+    "subtitle": "闭环服务"
+  }'::jsonb,
+  '{
+    "title": "贝瑞动态 · 核医前沿",
+    "subtitle": "行业资讯 | 技术突破 | 公司要闻"
+  }'::jsonb,
+  '{
+    "title": "联系贝瑞医疗专家团队",
+    "description": "立即沟通，获取核医学场所建设一站式解决方案。"
+  }'::jsonb,
+  '{
+    "title": "赋能精准医疗 · 共建核医学科标杆",
+    "description": "从设计到验收，贝瑞医疗让核医学场所建设更专业、更安全。"
+  }'::jsonb,
+  '{
+    "description": "专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。"
   }'::jsonb,
   '{
     "title": "贝瑞医疗 | 核医学场所建设一站式服务商",
