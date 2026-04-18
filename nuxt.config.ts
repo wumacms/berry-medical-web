@@ -50,6 +50,13 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/news': { prerender: true },
-    '/news/**': { swr: 3600 }
+    '/news/**': { prerender: true }
+  },
+
+  nitro: {
+    prerender: {
+      fallback: '404.html',
+      routes: ['/', '/news', '/news/1', '/news/2', '/news/3']
+    }
   }
 })
