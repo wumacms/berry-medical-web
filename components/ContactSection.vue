@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-12 items-center">
       <div class="rounded-2xl overflow-hidden shadow-xl order-2 md:order-1">
         <img 
-          src="https://images.unsplash.com/photo-1656646424763-145e4956a416?w=800&auto=format" 
+          src="/images/about/team.jpg" 
           alt="贝瑞医疗办公环境" 
           class="w-full h-auto object-cover"
           loading="lazy"

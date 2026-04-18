@@ -5,6 +5,12 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/tailwindcss'],
 
+  runtimeConfig: {
+    public: {
+      cdnBaseUrl: process.env.NUXT_PUBLIC_CDN_BASE_URL || ''
+    }
+  },
+
   app: {
     baseURL: '/berry-medical-nuxt/',
     head: {

@@ -13,19 +13,10 @@
           <p class="text-stone-500">{{ item.label }}</p>
         </div>
       </div>
-      <div class="mt-12 bg-stone-100 dark:bg-stone-800/50 p-6 rounded-2xl flex flex-wrap justify-between items-center gap-4">
-        <div v-for="(item, index) in highlightList" :key="index" class="flex items-center gap-3">
-          <i :class="['fas', item.icon, 'text-orange-500 text-2xl']"></i>
-          <span>{{ item.text }}</span>
-        </div>
-        <div>
-          <span v-for="(cert, index) in certificationList" :key="index" class="bg-orange-600 text-white px-4 py-2 rounded-full text-sm">{{ cert }}</span>
-        </div>
-      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-const { advantageList, highlightList, certificationList } = useAdvantages()
+const { advantageList } = useAdvantages()
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 暗色背景标题区块 -->
-    <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-28" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&auto=format');">
+    <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-28" style="background-image: url('/images/news/cover-1.jpg');">
       <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/85 to-stone-900/70 dark:from-black dark:via-stone-950/90 dark:to-stone-900/80"></div>
       <div class="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-transparent to-stone-950/50 pointer-events-none"></div>
       <div class="relative max-w-7xl mx-auto px-6 md:px-10 z-10">
@@ -126,7 +126,7 @@ const newsList: NewsItem[] = [
     excerpt: '在2025年全国核医学学术年会上，贝瑞医疗展示了全新升级的瑞核智慧管理系统，通过数字孪生技术实现辐射防护预演，吸引数百位专家驻足交流。',
     date: '2025.04.18',
     category: '公司要闻',
-    image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format',
+    image: '/images/news/cover-1.jpg',
     views: 1245
   },
   {
@@ -135,7 +135,7 @@ const newsList: NewsItem[] = [
     excerpt: '公司放射性药物设备事业部宣布，已为国内三家创新药企提供符合cGMP标准的热室及分装系统，推动靶向放射性核素治疗药物上市进程。',
     date: '2025.04.10',
     category: '技术突破',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&auto=format',
+    image: '/images/news/cover-2.jpg',
     views: 876
   },
   {
@@ -144,7 +144,7 @@ const newsList: NewsItem[] = [
     excerpt: '国家卫生健康委发布最新核医学辐射防护标准，贝瑞医疗作为行业参编单位，深度参与智能化监测与衰变池规范章节撰写。',
     date: '2025.03.28',
     category: '行业政策',
-    image: 'https://images.unsplash.com/photo-1581093458791-9d1f3c1b6d6a?w=800&auto=format',
+    image: '/images/news/cover-3.jpg',
     views: 654
   },
   {
@@ -153,7 +153,7 @@ const newsList: NewsItem[] = [
     excerpt: '在2025中国医疗信息化大会上，贝瑞医疗自主研发的"瑞核V1.0核医学智慧管理系统"凭借数字孪生及全维度监测功能获得创新金奖。',
     date: '2025.03.15',
     category: '公司要闻',
-    image: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&auto=format',
+    image: '/images/news/cover-2.jpg',
     views: 1023
   },
   {
@@ -162,7 +162,7 @@ const newsList: NewsItem[] = [
     excerpt: '3月28日，贝瑞医疗郑州总部展厅首次对外开放，现场演示辐射防护材料测试及衰变池智能控制系统，吸引众多医院基建科代表参加。',
     date: '2025.03.05',
     category: '展会活动',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format',
+    image: '/images/news/cover-3.jpg',
     views: 543
   },
   {
@@ -171,7 +171,7 @@ const newsList: NewsItem[] = [
     excerpt: '双方将共同研发新一代智能化放射性废物处理系统，提升核医学科环保与安全水平。',
     date: '2025.02.20',
     category: '公司要闻',
-    image: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format',
+    image: '/images/news/cover-1.jpg',
     views: 789
   }
 ]

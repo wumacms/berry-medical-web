@@ -5,11 +5,6 @@ export interface AdvantageItem {
   description: string
 }
 
-export interface HighlightItem {
-  icon: string
-  text: string
-}
-
 export const advantages: AdvantageItem[] = [
   {
     value: '10+',
@@ -31,19 +26,4 @@ export const advantages: AdvantageItem[] = [
     label: '核医学方案技术咨询',
     description: '核医学方案技术咨询'
   }
-]
-
-export const highlights: HighlightItem[] = [
-  {
-    icon: 'fa-book-open',
-    text: '参编核医学行业规范标准'
-  },
-  {
-    icon: 'fa-hard-hat',
-    text: '擅长复杂场地改造&狭小空间优化'
-  }
-]
-
-export const certifications = [
-  '全流程许可证办理支持'
 ]

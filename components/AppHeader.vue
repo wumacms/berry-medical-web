@@ -12,7 +12,7 @@
         </div>
         <div>
           <span class="font-bold text-xl tracking-tight text-stone-800 dark:text-stone-100">
-            贝瑞医疗<span class="text-orange-600 dark:text-orange-400">科技</span>
+            <span class="text-orange-600 dark:text-orange-400">贝瑞医疗</span>
           </span>
           <p class="text-[11px] leading-tight text-stone-500 dark:text-stone-400 hidden sm:block">
             核医学场所建设一站式服务商

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 文章主体区块 -->
-    <section class="relative bg-cover bg-center bg-no-repeat py-16 md:py-24" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&auto=format');">
+    <section class="relative bg-cover bg-center bg-no-repeat py-16 md:py-24" :style="{ backgroundImage: `url('${article.image}')` }">
       <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/85 to-stone-900/70 dark:from-black dark:via-stone-950/90 dark:to-stone-900/80"></div>
       <div class="relative max-w-4xl mx-auto px-6 md:px-10 z-10 text-center">
         <!-- 新闻分类 -->
@@ -93,6 +93,7 @@ import type { NewsItem } from '~/types/news'
 
 const route = useRoute()
 const newsId = route.params.id as string
+const { getImageUrl } = useCdnUrl()
 
 // 获取文章数据
 const article = computed<NewsItem>(() => {
@@ -103,7 +104,7 @@ const article = computed<NewsItem>(() => {
       excerpt: '在2025年全国核医学学术年会上，贝瑞医疗展示了全新升级的瑞核智慧管理系统，通过数字孪生技术实现辐射防护预演，吸引数百位专家驻足交流。',
       date: '2025年4月18日',
       category: '公司要闻',
-      image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format',
+      image: '/images/news/cover-1.jpg',
       views: 1245,
       readingTime: '5 分钟',
       tags: ['全国核医学年会', '数字孪生', '瑞核V1.2', '智慧管理'],
@@ -111,7 +112,7 @@ const article = computed<NewsItem>(() => {
         <p>2025年全国核医学学术年会于4月15日至18日在上海国际会议中心成功举办。作为国内领先的核医学场所建设一站式服务商，贝瑞医疗携全新升级的瑞核V1.2智慧管理系统精彩亮相，引发业界广泛关注。</p>
         <h2>数字孪生技术引领行业创新</h2>
         <p>本次年会上，贝瑞医疗重点展示的瑞核V1.2系统采用先进的数字孪生技术，能够1:1还原核医学科物理空间，实现辐射防护动态模拟与人员路径优化。现场演示环节，数百位来自全国各地的核医学专家驻足交流，对系统的前瞻性功能给予高度评价。</p>
-        <img src="https://images.unsplash.com/photo-1581093458791-9d1f3c1b6d6a?w=800&auto=format" alt="贝瑞医疗展位现场" class="rounded-xl shadow-md my-6 w-full">
+        <img src="/images/news/exhibition.jpg" alt="贝瑞医疗展位现场" class="rounded-xl shadow-md my-6 w-full">
         <p class="text-sm text-stone-500 dark:text-stone-400 text-center -mt-4 mb-6">贝瑞医疗年会展位现场</p>
         <h2>全流程解决方案获专家认可</h2>
         <p>除智慧管理系统外，贝瑞医疗还展示了从选址规划、辐射防护施工到设备供应的全产业链解决方案。多位三甲医院核医学科主任表示，贝瑞医疗的一站式服务模式极大地简化了项目建设流程，值得推广。</p>
@@ -134,7 +135,7 @@ const article = computed<NewsItem>(() => {
       excerpt: '公司放射性药物设备事业部宣布，已为国内三家创新药企提供符合cGMP标准的热室及分装系统，推动靶向放射性核素治疗药物上市进程。',
       date: '2025年4月10日',
       category: '技术突破',
-      image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&auto=format',
+      image: '/images/news/cover-2.jpg',
       views: 876,
       readingTime: '4 分钟',
       tags: ['Lu-177', 'GMP热室', '放射性药物', '临床转化'],
@@ -162,7 +163,7 @@ const article = computed<NewsItem>(() => {
       excerpt: '贝瑞医疗自主研发的瑞核智慧管理系统迎来重大升级，通过数字孪生技术实现辐射防护动态模拟与人员路径优化，为核医学科安全效能带来双重提升。',
       date: '2025年1月15日',
       category: '技术突破',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format',
+      image: '/images/news/cover-3.jpg',
       views: 1023,
       readingTime: '6 分钟',
       tags: ['数字孪生', '辐射防护', '瑞核V1.2', '智慧管理'],

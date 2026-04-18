@@ -32,7 +32,7 @@
         </div>
         <div class="rounded-2xl overflow-hidden shadow-xl">
           <img 
-            src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=800&auto=format" 
+            src="/images/about/team.jpg" 
             alt="核医学实验室团队" 
             class="w-full h-auto object-cover"
             loading="lazy"

@@ -8,7 +8,7 @@ export const latestNewsData: NewsItem[] = [
     excerpt: '公司携瑞核V1.0系统及全流程辐射防护方案亮相年会，获得多家三甲医院高度关注。',
     date: '2025.03.20',
     category: '行业峰会',
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format',
+    image: '/images/news/cover-1.jpg',
     views: 1245
   },
   {
@@ -17,7 +17,7 @@ export const latestNewsData: NewsItem[] = [
     excerpt: '公司为多家药企定制放射性药物合成热室，助力创新核药快速临床转化。',
     date: '2025.02.10',
     category: '技术突破',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&auto=format',
+    image: '/images/news/cover-2.jpg',
     views: 876
   },
   {
@@ -26,7 +26,7 @@ export const latestNewsData: NewsItem[] = [
     excerpt: '实现核医学科辐射防护动态模拟与人员路径优化，安全效能双提升。',
     date: '2025.01.15',
     category: '智慧升级',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format',
+    image: '/images/news/cover-3.jpg',
     views: 1023
   }
 ]
@@ -40,7 +40,7 @@ export const allNewsData: NewsItem[] = [
     excerpt: '公司先后与北京协和医院、上海华山医院等签署核医学场所建设战略合作协议。',
     date: '2024.12.20',
     category: '公司要闻',
-    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&auto=format',
+    image: '/images/news/cover-2.jpg',
     views: 956
   },
   {
@@ -49,7 +49,7 @@ export const allNewsData: NewsItem[] = [
     excerpt: '公司受邀参与《核医学科建设与管理规范》的编制工作，贡献专业力量。',
     date: '2024.11.15',
     category: '行业政策',
-    image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&auto=format',
+    image: '/images/news/cover-3.jpg',
     views: 723
   }
 ]

@@ -56,7 +56,7 @@ export const serviceDesign = {
     '衰变池、防护屏蔽、制药区域C级背景局部A级环境设计',
     '药监GMP专家检查及环保、卫评验收一站式技术支持'
   ],
-  image: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&auto=format'
+  image: '/images/services/design.jpg'
 }
 
 // 施工服务详情
@@ -70,7 +70,7 @@ export const serviceConstruction = {
     '放射性固体废物暂存与处理系统',
     '全程驻点技术指导，确保施工合规'
   ],
-  image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&auto=format'
+  image: '/images/services/construction.jpg'
 }
 
 // 设备服务详情
@@ -85,7 +85,7 @@ export const serviceEquipment = {
     '药物操作热室/手套箱',
     '放射性废物自动处理系统'
   ],
-  image: 'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=900&auto=format'
+  image: '/images/services/equipment.jpg'
 }
 
 // 软件服务详情
@@ -100,5 +100,5 @@ export const serviceSoftware = {
     '数据分析与报表生成',
     '7×24小时远程运维支持'
   ],
-  image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&auto=format'
+  image: '/images/services/software.jpg'
 }

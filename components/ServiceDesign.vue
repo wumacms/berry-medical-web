@@ -6,7 +6,7 @@
         <!-- 左侧图片区 -->
         <div class="rounded-2xl overflow-hidden shadow-xl order-1">
           <img 
-            src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&auto=format" 
+            src="/images/services/design.jpg" 
             alt="核医学设计规划与布局" 
             class="w-full h-auto object-cover"
             loading="lazy"

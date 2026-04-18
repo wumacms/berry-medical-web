@@ -6,7 +6,7 @@
         <!-- 左侧图片区 -->
         <div class="rounded-2xl overflow-hidden shadow-xl order-1">
           <img 
-            src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&auto=format" 
+            src="/images/services/equipment.jpg" 
             alt="核医学监测与防护设备" 
             class="w-full h-auto object-cover"
             loading="lazy"
