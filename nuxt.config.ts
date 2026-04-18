@@ -55,7 +55,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      fallback: '404.html',
+      failOnError: false,
       routes: ['/', '/news', '/news/1', '/news/2', '/news/3']
     }
   }

@@ -40,6 +40,9 @@ jobs:
           NUXT_PUBLIC_CDN_BASE_URL: https://wumacms.github.io/berry-medical-nuxt
         run: pnpm run generate
 
+      - name: Create SPA fallback
+        run: cp .output/public/index.html .output/public/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

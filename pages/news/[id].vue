@@ -98,6 +98,7 @@ const { getImageUrl } = useCdnUrl()
 // 获取文章数据
 const baseURL = useRuntimeConfig().app.baseURL || ''
 const article = computed<NewsItem>(() => {
+  const articles: Record<string, NewsItem> = {
     '1': {
       id: '1',
       title: '贝瑞医疗携瑞核V1.2亮相全国核医学年会，数字孪生成焦点',
