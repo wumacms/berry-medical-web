@@ -6,7 +6,7 @@
         <!-- 左侧图片区 -->
         <div class="rounded-2xl overflow-hidden shadow-xl order-1">
           <img 
-            src="/images/services/equipment.jpg" 
+            :src="getImageUrl('/images/services/equipment.jpg')" 
             alt="核医学监测与防护设备" 
             class="w-full h-auto object-cover"
             loading="lazy"
@@ -46,5 +46,5 @@
 </template>
 
 <script setup lang="ts">
-// Service Equipment Detail Section
+const { getImageUrl } = useCdnUrl()
 </script>

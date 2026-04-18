@@ -2,7 +2,7 @@
   <article class="group bg-stone-50 dark:bg-stone-800/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col border border-stone-200 dark:border-stone-700">
     <NuxtLink :to="`/news/${news.id}`" class="block relative overflow-hidden h-56">
       <img 
-        :src="news.image" 
+        :src="getImageUrl(news.image)" 
         :alt="news.title" 
         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
         loading="lazy"
@@ -41,4 +41,6 @@ defineProps<{
   news: NewsItem
   featured?: boolean
 }>()
+
+const { getImageUrl } = useCdnUrl()
 </script>

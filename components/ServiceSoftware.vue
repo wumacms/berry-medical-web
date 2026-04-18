@@ -27,7 +27,7 @@
       </div>
       <div class="flex-1 rounded-2xl overflow-hidden shadow-xl">
         <img 
-          src="/images/services/software.jpg" 
+          :src="getImageUrl('/images/services/software.jpg')" 
           alt="智慧管理系统界面" 
           class="w-full h-auto object-cover"
           loading="lazy"
@@ -38,5 +38,5 @@
 </template>
 
 <script setup lang="ts">
-// Service Software - Ruihe V1.0 System Section
+const { getImageUrl } = useCdnUrl()
 </script>

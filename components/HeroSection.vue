@@ -1,6 +1,6 @@
 <template>
   <!-- ========== 1. 首屏Hero区块 + 背景大图 ========== -->
-  <section id="home" class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('/images/news/cover-1.jpg'); background-size: cover;">
+  <section id="home" class="relative bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: `url('${getImageUrl('/images/news/cover-1.jpg')}')`, backgroundSize: 'cover' }">
     <!-- 深色遮罩层，确保文字可读 -->
     <div class="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
     <div class="relative max-w-7xl mx-auto px-6 md:px-10 py-28 md:py-36 flex flex-col lg:flex-row items-center gap-12 z-10">
@@ -34,5 +34,5 @@
 </template>
 
 <script setup lang="ts">
-// Hero Section Component
+const { getImageUrl } = useCdnUrl()
 </script>

@@ -35,19 +35,19 @@
                   <h4 class="text-white font-semibold mb-4">官方微信</h4>
                   <div class="flex gap-2 justify-center">
                       <div class="text-center">
-                          <img src="/images/qrcode/gongzhonghao.png" 
+                          <img :src="getImageUrl('/images/qrcode/gongzhonghao.png')" 
                                alt="微信公众号二维码" 
                                class="w-16 h-16 rounded-lg border border-stone-700">
                           <p class="mt-1 text-xs text-stone-500">公众号</p>
                       </div>
                       <div class="text-center">
-                          <img src="/images/qrcode/shipinhao.png" 
+                          <img :src="getImageUrl('/images/qrcode/shipinhao.png')" 
                                alt="微信视频号二维码" 
                                class="w-16 h-16 rounded-lg border border-stone-700">
                           <p class="mt-1 text-xs text-stone-500">视频号</p>
                       </div>
                       <div class="text-center">
-                          <img src="/images/qrcode/xiaochengxu.png" 
+                          <img :src="getImageUrl('/images/qrcode/xiaochengxu.png')" 
                                alt="微信小程序二维码" 
                                class="w-16 h-16 rounded-lg border border-stone-700">
                           <p class="mt-1 text-xs text-stone-500">小程序</p>
@@ -62,3 +62,7 @@
       </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const { getImageUrl } = useCdnUrl()
+</script>

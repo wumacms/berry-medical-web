@@ -34,7 +34,7 @@
         <!-- 右侧图片区 -->
         <div class="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
           <img 
-            src="/images/services/construction.jpg" 
+            :src="getImageUrl('/images/services/construction.jpg')" 
             alt="核医学辐射防护施工" 
             class="w-full h-auto object-cover"
             loading="lazy"
@@ -46,5 +46,5 @@
 </template>
 
 <script setup lang="ts">
-// Service Construction Detail Section
+const { getImageUrl } = useCdnUrl()
 </script>

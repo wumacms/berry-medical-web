@@ -32,7 +32,7 @@
         </div>
         <div class="rounded-2xl overflow-hidden shadow-xl">
           <img 
-            src="/images/about/team.jpg" 
+            :src="getImageUrl('/images/about/team.jpg')" 
             alt="核医学实验室团队" 
             class="w-full h-auto object-cover"
             loading="lazy"
@@ -44,5 +44,5 @@
 </template>
 
 <script setup lang="ts">
-// About Section Component
+const { getImageUrl } = useCdnUrl()
 </script>
