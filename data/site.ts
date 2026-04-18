@@ -1,3 +1,5 @@
+import siteData from './generated/site.json'
+
 // 网站基础配置
 export interface SiteConfig {
   name: string
@@ -53,30 +55,21 @@ export interface OrganizationSchema {
 
 // 网站配置数据
 export const siteConfig: SiteConfig = {
-  name: '贝瑞医疗',
-  companyName: '贝瑞医疗科技（郑州）有限公司',
-  slogan: '核医学场所建设一站式服务商',
-  description: '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。',
-  keywords: [
-    '核医学',
-    '辐射防护',
-    '放射性药品',
-    'GMP',
-    '智慧管理系统',
-    '瑞核V1.0',
-    '131I治疗',
-    'Lu-177标记药物'
-  ],
-  url: 'http://www.berrymedical.com.cn',
-  logo: 'http://www.berrymedical.com.cn/favicon.svg',
+  name: siteData?.name || '贝瑞医疗',
+  companyName: siteData?.companyName || '贝瑞医疗科技（郑州）有限公司',
+  slogan: siteData?.slogan || '核医学场所建设一站式服务商',
+  description: siteData?.description || '',
+  keywords: siteData?.seo?.keywords || ['核医学', '辐射防护', '放射性药品', 'GMP'],
+  url: siteData?.url || 'https://wumacms.github.io/berry-medical-nuxt',
+  logo: siteData?.logo || '/images/logos/logo.png',
   contact: {
-    phone: ['18503878846', '13215991477'],
-    email: '530051528@qq.com',
+    phone: siteData?.contact?.phone || ['18503878846', '13215991477'],
+    email: siteData?.contact?.email || '530051528@qq.com',
     address: {
-      city: '郑州市',
-      province: '河南省',
-      street: '高新技术产业开发区瑞达路睿达广场1栋14层',
-      postalCode: '450000'
+      province: siteData?.contact?.address?.province || '河南省',
+      city: siteData?.contact?.address?.city || '郑州市',
+      street: siteData?.contact?.address?.street || '高新技术产业开发区瑞达路睿达广场1栋14层',
+      postalCode: siteData?.contact?.address?.postalCode || '450000'
     }
   }
 }
@@ -84,10 +77,10 @@ export const siteConfig: SiteConfig = {
 // SEO 配置
 export const seoConfig: Record<string, SeoConfig> = {
   home: {
-    title: '贝瑞医疗 | 核医学场所建设一站式服务商',
-    description: '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。',
-    ogTitle: '贝瑞医疗 | 核医学场所建设一站式服务商',
-    ogDescription: '专注核医学场所建设，从选址规划、辐射防护防护施工到智慧管理系统，为全国顶级医疗机构提供全产业链闭环解决方案。',
+    title: siteData?.seo?.title || '贝瑞医疗 | 核医学场所建设一站式服务商',
+    description: siteData?.seo?.description || '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链。',
+    ogTitle: siteData?.seo?.title || '贝瑞医疗 | 核医学场所建设一站式服务商',
+    ogDescription: siteData?.seo?.description || '专注核医学场所建设，从选址规划到智慧管理系统。',
     ogType: 'website',
     twitterCard: 'summary_large_image'
   }
@@ -95,20 +88,20 @@ export const seoConfig: Record<string, SeoConfig> = {
 
 // Organization 结构化数据
 export const organizationSchema: OrganizationSchema = {
-  name: '贝瑞医疗科技',
+  name: siteData?.name || '贝瑞医疗科技',
   alternateName: 'Berry Medical',
-  url: 'http://www.berrymedical.com.cn',
-  logo: 'http://www.berrymedical.com.cn/favicon.svg',
-  description: '核医学场所建设一站式服务商',
+  url: siteConfig.url,
+  logo: siteConfig.logo,
+  description: siteConfig.description,
   address: {
-    addressLocality: '郑州市',
-    addressRegion: '河南省',
-    streetAddress: '高新技术产业开发区瑞达路睿达广场1栋14层',
-    postalCode: '450000',
+    addressLocality: siteConfig.contact.address.city,
+    addressRegion: siteConfig.contact.address.province,
+    streetAddress: siteConfig.contact.address.street,
+    postalCode: siteConfig.contact.address.postalCode,
     addressCountry: 'CN'
   },
   contactPoint: {
-    telephone: '+86-18503878846',
+    telephone: `+86-${siteConfig.contact.phone[0]}`,
     contactType: 'customer service'
   }
 }
