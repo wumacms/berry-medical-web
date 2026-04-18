@@ -5,13 +5,12 @@
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 justify-between">
               <!-- 品牌Logo 与 简介 -->
               <div>
-                  <div class="flex items-center gap-2">
-                      <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                          贝
-                      </div>
-                      <span class="text-white text-lg font-semibold">贝瑞医疗科技</span>
-                  </div>
-                  <p class="mt-4 text-sm text-stone-400 leading-relaxed">专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。</p>
+                  <img 
+                    :src="getImageUrl('/images/logos/logo.png')" 
+                    alt="贝瑞医疗" 
+                    class="h-10 w-auto mb-4"
+                  >
+                  <p class="text-sm text-stone-400 leading-relaxed">专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。</p>
               </div>
               <!-- 公司地址 -->
               <div>

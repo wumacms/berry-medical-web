@@ -5,19 +5,11 @@
     <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
       <!-- Logo + 品牌名 -->
       <NuxtLink to="/" class="flex items-center gap-3">
-        <div
-          class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center text-orange-600 dark:text-orange-400 shadow-sm"
+        <img 
+          :src="getImageUrl('/images/logos/logo.png')" 
+          alt="贝瑞医疗" 
+          class="h-10 w-auto"
         >
-          <i class="fas fa-biohazard text-xl"></i>
-        </div>
-        <div>
-          <span class="font-bold text-xl tracking-tight text-stone-800 dark:text-stone-100">
-            <span class="text-orange-600 dark:text-orange-400">贝瑞医疗</span>
-          </span>
-          <p class="text-[11px] leading-tight text-stone-500 dark:text-stone-400 hidden sm:block">
-            核医学场所建设一站式服务商
-          </p>
-        </div>
       </NuxtLink>
 
       <!-- 桌面端导航 (含二级下拉) -->
@@ -158,6 +150,7 @@
 </template>
 
 <script setup lang="ts">
+const { getImageUrl } = useCdnUrl()
 const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
