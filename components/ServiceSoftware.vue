@@ -12,8 +12,8 @@
         </p>
         <ul class="mt-6 space-y-3">
           <li v-for="(feature, idx) in software.features" :key="idx" class="flex items-center gap-2">
-            <i class="fas fa-check-circle text-orange-500"></i>
-            <span>{{ feature }}</span>
+            <i :class="['fas', feature.icon, 'text-orange-500']"></i>
+            <span>{{ feature.text }}</span>
           </li>
         </ul>
       </div>

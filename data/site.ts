@@ -1,7 +1,23 @@
-import siteDataRaw from './generated/site.json'
+/**
+ * 网站配置数据
+ * 从 website.json 读取
+ */
 
-// JSON 数据类型（与 site.json 结构对应）
-interface SiteDataJson {
+import websiteData from './generated/website.json'
+import {
+  homeHero,
+  homeAbout,
+  homeAdvantages,
+  homeServices,
+  homeNews,
+  homeCta,
+  homeProjects,
+  homeContact
+} from './blocks'
+
+// JSON 数据类型
+interface WebsiteJson {
+  id?: string
   name?: string
   companyName?: string
   slogan?: string
@@ -20,41 +36,13 @@ interface SiteDataJson {
       postalCode?: string
     }
   }
-  hero?: {
-    badge?: string
-    title?: string
+  navConfig?: Record<string, any>
+  footerConfig?: {
+    copyright?: string
     description?: string
-    tags?: string[]
-  }
-  about?: {
-    title?: string
-    subtitle?: string
-    description?: string
-    features?: { icon: string; text: string }[]
-  }
-  advantages?: {
-    title?: string
-    subtitle?: string
-  }
-  services?: {
-    title?: string
-    subtitle?: string
-  }
-  news?: {
-    title?: string
-    subtitle?: string
-  }
-  projects?: string[]
-  contactSection?: {
-    title?: string
-    description?: string
-  }
-  cta?: {
-    title?: string
-    description?: string
-  }
-  footer?: {
-    description?: string
+    icp?: string
+    icpLink?: string
+    columns?: any[]
   }
   seo?: {
     title?: string
@@ -63,9 +51,9 @@ interface SiteDataJson {
   }
 }
 
-const siteData = siteDataRaw as SiteDataJson
+const siteData = websiteData as WebsiteJson
 
-// 网站基础配置
+// 网站配置类型
 export interface SiteConfig {
   name: string
   companyName: string
@@ -86,47 +74,26 @@ export interface SiteConfig {
       postalCode: string
     }
   }
-  hero: {
-    badge: string
-    title: string
-    description: string
-    tags: string[]
-  }
-  about: {
-    title: string
-    subtitle: string
-    description: string
-    features: { icon: string; text: string }[]
-  }
-  advantages: {
-    title: string
-    subtitle: string
-  }
-  services: {
-    title: string
-    subtitle: string
-  }
-  news: {
-    title: string
-    subtitle: string
-  }
-  projects: string[]
-  contactSection: {
-    title: string
-    description: string
-  }
-  cta: {
-    title: string
-    description: string
-  }
   footer: {
+    copyright: string
     description: string
+    icp: string
+    icpLink: string
   }
   seo: {
     title: string
     description: string
     keywords: string[]
   }
+  // 区块数据
+  hero: Record<string, any>
+  about: Record<string, any>
+  advantages: Record<string, any>
+  services: Record<string, any>
+  news: Record<string, any>
+  cta: Record<string, any>
+  projects: Record<string, any>
+  contactSection: Record<string, any>
 }
 
 export interface SeoConfig {
@@ -178,59 +145,26 @@ export const siteConfig: SiteConfig = {
       postalCode: siteData?.contact?.address?.postalCode || '450001'
     }
   },
-  hero: {
-    badge: siteData?.hero?.badge || '精准医疗 · 核创未来',
-    title: siteData?.hero?.title || '专注核医学场所\n一站式服务商',
-    description: siteData?.hero?.description || '从选址规划、辐射防护施工到智慧管理系统，贝瑞医疗为全国顶级医疗机构提供全产业链闭环解决方案，助力精准诊疗时代。',
-    tags: siteData?.hero?.tags || ['15+年专业团队', '30+成功案例', '全流程GMP合规']
-  },
-  about: {
-    title: siteData?.about?.title || '精于专业 · 恪于安全 · 诚于客户',
-    subtitle: siteData?.about?.subtitle || '核医学一站式服务领航者',
-    description: siteData?.about?.description || '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。',
-    features: siteData?.about?.features || [
-      { icon: 'fa-drafting-compass', text: '工艺设计/专项施工图' },
-      { icon: 'fa-hard-hat', text: '辐射防护施工/三废处理' },
-      { icon: 'fa-chart-line', text: '智慧核医学管理系统' },
-      { icon: 'fa-hand-holding-heart', text: '7×24h运维检测' }
-    ]
-  },
-  advantages: {
-    title: siteData?.advantages?.title || '为什么选择贝瑞医疗',
-    subtitle: siteData?.advantages?.subtitle || '核心技术壁垒 · 深度行业积淀'
-  },
-  services: {
-    title: siteData?.services?.title || '核医学场所 · 全生命周期解决方案',
-    subtitle: siteData?.services?.subtitle || '闭环服务'
-  },
-  news: {
-    title: siteData?.news?.title || '贝瑞动态 · 核医前沿',
-    subtitle: siteData?.news?.subtitle || '行业资讯 | 技术突破 | 公司要闻'
-  },
-  projects: siteData?.projects || [
-    '复旦大学附属中山医院',
-    '陆军军医大学西南医院',
-    '南昌大学第一附属医院',
-    '福建医科大学附属第一医院',
-    '广东省第二人民医院',
-    '宜春市人民医院'
-  ],
-  contactSection: {
-    title: siteData?.contactSection?.title || '联系贝瑞医疗专家团队',
-    description: siteData?.contactSection?.description || '立即沟通，获取核医学场所建设一站式解决方案。'
-  },
-  cta: {
-    title: siteData?.cta?.title || '赋能精准医疗 · 共建核医学科标杆',
-    description: siteData?.cta?.description || '从设计到验收，贝瑞医疗让核医学场所建设更专业、更安全。'
-  },
   footer: {
-    description: siteData?.footer?.description || '专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。'
+    copyright: siteData?.footerConfig?.copyright || '© 2025 贝瑞医疗科技（郑州）有限公司',
+    description: siteData?.footerConfig?.description || '专注核医学场所建设一站式服务，从设计、施工到智慧管理系统，赋能精准医疗，守护医患安全。',
+    icp: siteData?.footerConfig?.icp || '豫ICP备2025123456号',
+    icpLink: siteData?.footerConfig?.icpLink || 'https://beian.miit.gov.cn/'
   },
   seo: {
     title: siteData?.seo?.title || '贝瑞医疗 | 核医学场所建设一站式服务商',
     description: siteData?.seo?.description || '贝瑞医疗科技（郑州）有限公司，深耕核医学场所建设全产业链。',
     keywords: siteData?.seo?.keywords || ['核医学', '辐射防护', '放射性药品', 'GMP', '智慧管理系统']
-  }
+  },
+  // 区块数据
+  hero: homeHero?.config || { badge: '', title: '', description: '', tags: [] },
+  about: homeAbout?.config || { title: '', subtitle: '', description: '', features: [] },
+  advantages: homeAdvantages?.config || { title: '', subtitle: '', items: [], highlights: [], badge: '' },
+  services: homeServices?.config || { title: '', subtitle: '', cards: [], detailLinks: [] },
+  news: homeNews?.config || { title: '', subtitle: '', limit: 3, showMoreButton: {} },
+  cta: homeCta?.config || { title: '', description: '' },
+  projects: homeProjects?.config || { title: '', subtitle: '', items: [] },
+  contactSection: homeContact?.config || { title: '', description: '' }
 }
 
 // SEO 配置

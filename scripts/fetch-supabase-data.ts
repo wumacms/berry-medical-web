@@ -2,6 +2,7 @@
  * 从 Supabase 获取数据并保存为 JSON 文件
  * 
  * 使用方式：
+ *   pnpm fetch-data
  *   node scripts/fetch-supabase-data.ts
  * 
  * 环境变量（需要在 .env 或 GitHub Secrets 中配置）：
@@ -14,7 +15,54 @@ import { createClient } from '@supabase/supabase-js'
 import * as fs from 'fs'
 import * as path from 'path'
 
+// =============================================
 // 类型定义
+// =============================================
+
+interface Website {
+  id: string
+  name: string | null
+  domain: string | null
+  company_name: string | null
+  slogan: string | null
+  description: string | null
+  logo: string | null
+  url: string | null
+  icp: string | null
+  contact: Record<string, any>
+  nav_config: Record<string, any>
+  footer_config: Record<string, any>
+  seo: Record<string, any>
+  created_at: string
+  updated_at: string
+}
+
+interface Page {
+  id: string
+  website_id: string
+  name: string
+  path: string
+  description: string | null
+  nav_sort_order: number
+  is_nav_visible: boolean
+  is_footer_visible: boolean
+  seo: Record<string, any>
+  created_at: string
+  updated_at: string
+}
+
+interface Block {
+  id: string
+  page_id: string
+  type: string
+  title: string | null
+  sort_order: number
+  config: Record<string, any>
+  is_published: boolean
+  created_at: string
+  updated_at: string
+}
+
 interface NewsItem {
   id: string
   title: string
@@ -29,89 +77,10 @@ interface NewsItem {
   created_at: string
 }
 
-interface ServiceItem {
-  id: string
-  title: string
-  badge: string | null
-  description: string | null
-  features: string[] | null
-  image: string | null
-  sort_order: number
-  is_published: boolean
-}
-
-interface AdvantageItem {
-  id: number
-  value: string
-  label: string
-  description: string | null
-  sort_order: number
-}
-
-interface SiteConfig {
-  id: string
-  name: string | null
-  company_name: string | null
-  slogan: string | null
-  description: string | null
-  logo: string | null
-  url: string | null
-  icp: string | null
-  contact: {
-    phone?: string[]
-    email?: string
-    website?: string
-    address?: {
-      province?: string
-      city?: string
-      street?: string
-      postalCode?: string
-    }
-  }
-  hero: {
-    badge?: string
-    title?: string
-    description?: string
-    tags?: string[]
-  }
-  about: {
-    title?: string
-    subtitle?: string
-    description?: string
-    features?: { icon: string; text: string }[]
-  }
-  advantages: {
-    title?: string
-    subtitle?: string
-  }
-  services: {
-    title?: string
-    subtitle?: string
-  }
-  news: {
-    title?: string
-    subtitle?: string
-  }
-  projects: string[]
-  contact_info: {
-    title?: string
-    description?: string
-  }
-  cta: {
-    title?: string
-    description?: string
-  }
-  footer: {
-    description?: string
-  }
-  seo: {
-    title?: string
-    description?: string
-    keywords?: string[]
-  }
-}
-
+// =============================================
 // 验证环境变量
+// =============================================
+
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
@@ -123,11 +92,16 @@ if (!supabaseUrl || !supabaseKey) {
   process.exit(1)
 }
 
+// =============================================
 // 创建 Supabase 客户端
-const supabase = createClient(supabaseUrl, supabaseKey)
+// =============================================
 
-// 输出目录
+const supabase = createClient(supabaseUrl, supabaseKey)
 const outputDir = path.join(process.cwd(), 'data', 'generated')
+
+// =============================================
+// 主函数
+// =============================================
 
 async function fetchData(): Promise<void> {
   console.log('📦 从 Supabase 获取数据...\n')
@@ -136,44 +110,69 @@ async function fetchData(): Promise<void> {
   try {
     // 并行获取所有数据
     const [
-      { data: news, error: newsError },
-      { data: services, error: servicesError },
-      { data: advantages, error: advantagesError },
-      { data: siteConfig, error: siteConfigError }
+      { data: websites, error: websitesError },
+      { data: pages, error: pagesError },
+      { data: blocks, error: blocksError },
+      { data: news, error: newsError }
     ] = await Promise.all([
-      supabase
-        .from('news')
-        .select('*')
-        .eq('is_published', true)
-        .order('date', { ascending: false }),
-      supabase
-        .from('services')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true }),
-      supabase
-        .from('advantages')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true }),
-      supabase
-        .from('site_config')
-        .select('*')
-        .eq('id', 'main')
-        .single()
+      supabase.from('websites').select('*').eq('id', 'main').single(),
+      supabase.from('pages').select('*').order('nav_sort_order', { ascending: true }),
+      supabase.from('blocks').select('*').eq('is_published', true).order('sort_order', { ascending: true }),
+      supabase.from('news').select('*').eq('is_published', true).order('date', { ascending: false })
     ])
 
     // 检查错误
+    if (websitesError) throw new Error(`网站数据获取失败: ${websitesError.message}`)
+    if (pagesError) throw new Error(`页面数据获取失败: ${pagesError.message}`)
+    if (blocksError) throw new Error(`区块数据获取失败: ${blocksError.message}`)
     if (newsError) throw new Error(`新闻数据获取失败: ${newsError.message}`)
-    if (servicesError) throw new Error(`服务数据获取失败: ${servicesError.message}`)
-    if (advantagesError) throw new Error(`优势数据获取失败: ${advantagesError.message}`)
-    if (siteConfigError) throw new Error(`网站配置获取失败: ${siteConfigError.message}`)
 
     // 确保输出目录存在
     fs.mkdirSync(outputDir, { recursive: true })
 
+    // 处理网站数据
+    const website = websites as Website
+    const processedWebsite = {
+      id: website.id,
+      name: website.name || '贝瑞医疗',
+      companyName: website.company_name || '',
+      slogan: website.slogan || '',
+      description: website.description || '',
+      logo: website.logo || '',
+      url: website.url || '',
+      icp: website.icp || '',
+      contact: website.contact || {},
+      navConfig: website.nav_config || {},
+      footerConfig: website.footer_config || {},
+      seo: website.seo || {}
+    }
+
+    // 处理页面数据 - 只保留导航可见的
+    const processedPages = ((pages as Page[]) || [])
+      .filter(p => p.is_nav_visible)
+      .map(p => ({
+        id: p.id,
+        name: p.name,
+        path: p.path,
+        description: p.description || '',
+        navSortOrder: p.nav_sort_order,
+        isNavVisible: p.is_nav_visible,
+        seo: p.seo || {}
+      }))
+
+    // 处理区块数据 - 按 page_id 分组
+    const blocksList = (blocks as Block[]) || []
+    const processedBlocks = blocksList.map(b => ({
+      id: b.id,
+      pageId: b.page_id,
+      type: b.type,
+      title: b.title || '',
+      sortOrder: b.sort_order,
+      config: b.config || {}
+    }))
+
     // 处理新闻数据
-    const processedNews = (news || []).map((item: NewsItem) => ({
+    const processedNews = ((news as NewsItem[]) || []).map(item => ({
       id: item.id,
       title: item.title,
       excerpt: item.excerpt || '',
@@ -185,74 +184,18 @@ async function fetchData(): Promise<void> {
       tags: item.tags || []
     }))
 
-    // 处理服务数据
-    const processedServices = (services || []).map((item: ServiceItem) => ({
-      id: item.id,
-      title: item.title,
-      badge: item.badge || '',
-      description: item.description || '',
-      features: item.features || [],
-      image: item.image || ''
-    }))
-
-    // 处理优势数据
-    const processedAdvantages = (advantages || []).map((item: AdvantageItem) => ({
-      value: item.value,
-      label: item.label,
-      description: item.description || ''
-    }))
-
-    // 处理网站配置
-    const config = siteConfig as SiteConfig
-    const processedSiteConfig = config ? {
-      name: config.name || '贝瑞医疗',
-      companyName: config.company_name || '',
-      slogan: config.slogan || '',
-      description: config.description || '',
-      logo: config.logo || '',
-      url: config.url || '',
-      icp: config.icp || '',
-      contact: config.contact || {},
-      hero: config.hero || {},
-      about: config.about || {},
-      advantages: config.advantages || {},
-      services: config.services || {},
-      news: config.news || {},
-      projects: config.projects || [],
-      contactSection: config.contact_info || {},
-      cta: config.cta || {},
-      footer: config.footer || {},
-      seo: config.seo || {}
-    } : null
-
     // 写入 JSON 文件
-    fs.writeFileSync(
-      path.join(outputDir, 'news.json'),
-      JSON.stringify(processedNews, null, 2),
-      'utf-8'
-    )
+    fs.writeFileSync(path.join(outputDir, 'website.json'), JSON.stringify(processedWebsite, null, 2), 'utf-8')
+    console.log(`✅ 网站数据: ${processedWebsite.name}`)
+
+    fs.writeFileSync(path.join(outputDir, 'pages.json'), JSON.stringify(processedPages, null, 2), 'utf-8')
+    console.log(`✅ 页面数据: ${processedPages.length} 条`)
+
+    fs.writeFileSync(path.join(outputDir, 'blocks.json'), JSON.stringify(processedBlocks, null, 2), 'utf-8')
+    console.log(`✅ 区块数据: ${processedBlocks.length} 条`)
+
+    fs.writeFileSync(path.join(outputDir, 'news.json'), JSON.stringify(processedNews, null, 2), 'utf-8')
     console.log(`✅ 新闻数据: ${processedNews.length} 条`)
-
-    fs.writeFileSync(
-      path.join(outputDir, 'services.json'),
-      JSON.stringify(processedServices, null, 2),
-      'utf-8'
-    )
-    console.log(`✅ 服务数据: ${processedServices.length} 条`)
-
-    fs.writeFileSync(
-      path.join(outputDir, 'advantages.json'),
-      JSON.stringify(processedAdvantages, null, 2),
-      'utf-8'
-    )
-    console.log(`✅ 优势数据: ${processedAdvantages.length} 条`)
-
-    fs.writeFileSync(
-      path.join(outputDir, 'site.json'),
-      JSON.stringify(processedSiteConfig, null, 2),
-      'utf-8'
-    )
-    console.log(`✅ 网站配置: 已获取`)
 
     console.log(`\n📁 数据已保存到: ${outputDir}`)
     console.log('\n✨ 完成！')

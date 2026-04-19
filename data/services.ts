@@ -1,68 +1,76 @@
-import servicesData from './generated/services.json'
+/**
+ * 服务数据
+ * 从 blocks.json 读取 (type = services, service-detail)
+ */
+
+import blocksData from './generated/blocks.json'
 
 // 服务详情数据
 export interface ServiceItem {
   id: string
+  badge: string
   title: string
-  icon: string
   description: string
-  features: string[]
-  image?: string
+  features: { icon: string; text: string }[]
 }
 
-// 服务概览数据
-export const servicesOverview = servicesData.slice(0, 3).map((service, index) => {
-  const icons = ['fa-pencil-ruler', 'fa-hard-hat', 'fa-microscope']
-  const descriptions = [
-    '选址评估 · 布局优化 · 辐射分区 · GMP标准洁净区设计 · 通风系统独立气流组织',
-    '辐射防护施工 · 放射性废水处理系统 · 多工种协同管理 · 全程驻点',
-    '核素治疗监测 · 辐射监测仪器 · 药物操作热室/手套箱'
-  ]
-  return {
-    id: service.id,
-    title: service.title.replace('全流程核医学专项设计', '设计').replace('辐射防护施工与三废处理', '施工').replace('核医学设备供应与安装', '设备'),
-    icon: icons[index] || 'fa-cog',
-    description: descriptions[index] || service.description,
-    features: service.features?.slice(0, 3) || []
-  }
-})
+// 查找 blocks.json 中的 services 区块
+const servicesBlock = (blocksData as any[]).find((b: any) => b.type === 'services')
+const serviceDetailBlocks = (blocksData as any[]).filter((b: any) => b.type === 'service-detail')
 
-// 根据 ID 获取服务详情
-const servicesMap: Record<string, typeof servicesData[0]> = {}
-servicesData.forEach(s => { servicesMap[s.id] = s })
+// 服务概览数据 - 从 services 区块的 cards 提取
+export const servicesOverview = (servicesBlock?.config?.cards || []).map((card: any) => ({
+  id: card.id,
+  title: card.title,
+  icon: card.icon,
+  description: card.description,
+  features: card.features || []
+}))
+
+// 服务概览头部信息
+export const servicesHeader = {
+  title: servicesBlock?.config?.title || '核医学场所 · 全生命周期解决方案',
+  subtitle: servicesBlock?.config?.subtitle || '闭环服务',
+  detailLinks: servicesBlock?.config?.detailLinks || []
+}
+
+// 查找服务详情
+const getServiceDetail = (id: string) => {
+  return serviceDetailBlocks.find((b: any) => b.config?.id === id)?.config || {}
+}
 
 // 设计服务详情
-export const serviceDesign = {
-  badge: servicesMap['design']?.badge || '精准设计 · 合规先行',
-  title: servicesMap['design']?.title || '全流程核医学专项设计',
-  description: servicesMap['design']?.description || '',
-  features: servicesMap['design']?.features || [],
-  image: servicesMap['design']?.image || '/images/services/design.jpg'
+export const serviceDesign: ServiceItem = {
+  id: 'design',
+  badge: getServiceDetail('service-design').badge || '精准设计 · 合规先行',
+  title: getServiceDetail('service-design').title || '全流程核医学专项设计',
+  description: getServiceDetail('service-design').description || '',
+  features: getServiceDetail('service-design').features || []
 }
 
 // 施工服务详情
-export const serviceConstruction = {
-  badge: servicesMap['construction']?.badge || '专业施工 · 品质保障',
-  title: servicesMap['construction']?.title || '辐射防护施工与三废处理',
-  description: servicesMap['construction']?.description || '',
-  features: servicesMap['construction']?.features || [],
-  image: servicesMap['construction']?.image || '/images/services/construction.jpg'
+export const serviceConstruction: ServiceItem = {
+  id: 'construction',
+  badge: getServiceDetail('service-construction').badge || '匠心施工 · 全程可控',
+  title: getServiceDetail('service-construction').title || '辐射防护与净化工程总承包',
+  description: getServiceDetail('service-construction').description || '',
+  features: getServiceDetail('service-construction').features || []
 }
 
 // 设备服务详情
-export const serviceEquipment = {
-  badge: servicesMap['equipment']?.badge || '先进设备 · 精准监测',
-  title: servicesMap['equipment']?.title || '核医学设备供应与安装',
-  description: servicesMap['equipment']?.description || '',
-  features: servicesMap['equipment']?.features || [],
-  image: servicesMap['equipment']?.image || '/images/services/equipment.jpg'
+export const serviceEquipment: ServiceItem = {
+  id: 'equipment',
+  badge: getServiceDetail('service-equipment').badge || '尖端设备 · 智慧监测',
+  title: getServiceDetail('service-equipment').title || '核素治疗及辐射监测仪器',
+  description: getServiceDetail('service-equipment').description || '',
+  features: getServiceDetail('service-equipment').features || []
 }
 
 // 软件服务详情
-export const serviceSoftware = {
-  badge: servicesMap['software']?.badge || '智慧管理 · 数字赋能',
-  title: servicesMap['software']?.title || '瑞核智慧管理系统V1.0',
-  description: servicesMap['software']?.description || '',
-  features: servicesMap['software']?.features || [],
-  image: servicesMap['software']?.image || '/images/services/software.jpg'
+export const serviceSoftware: ServiceItem = {
+  id: 'software',
+  badge: getServiceDetail('service-software').badge || '数字孪生 · 智慧中枢',
+  title: getServiceDetail('service-software').title || '瑞核V1.0 核医学智慧管理系统',
+  description: getServiceDetail('service-software').description || '',
+  features: getServiceDetail('service-software').features || []
 }

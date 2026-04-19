@@ -23,8 +23,8 @@
           </p>
           <div class="mt-6 space-y-3">
             <div v-for="(feature, idx) in equipment.features" :key="idx" class="flex items-start gap-3">
-              <i class="fas fa-check-circle text-orange-500 mt-1"></i>
-              <span>{{ feature }}</span>
+              <i :class="['fas', feature.icon, 'text-orange-500 mt-1']"></i>
+              <span>{{ feature.text }}</span>
             </div>
           </div>
         </div>

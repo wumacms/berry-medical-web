@@ -1,0 +1,35 @@
+{
+  "id": "main",
+  "name": "贝瑞医疗",
+  "companyName": "贝瑞医疗科技（郑州）有限公司",
+  "slogan": "核医学场所建设一站式服务商",
+  "description": "深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。",
+  "logo": "/images/logos/logo.png",
+  "url": "https://wumacms.github.io/berry-medical-nuxt",
+  "icp": "豫ICP备2025123456号",
+  "contact": {
+    "email": "530051528@qq.com",
+    "phone": ["18503878846", "13215991477"],
+    "address": {
+      "province": "河南省",
+      "city": "郑州市",
+      "street": "高新技术产业开发区瑞达路睿达广场1栋14层"
+    }
+  },
+  "navConfig": {
+    "logo": "/images/logos/logo.png",
+    "logoAlt": "贝瑞医疗",
+    "ctaButton": {
+      "text": "免费咨询",
+      "link": "/#contact"
+    }
+  },
+  "footerConfig": {
+    "icp": "豫ICP备2025123456号",
+    "copyright": "© 2025 贝瑞医疗科技（郑州）有限公司"
+  },
+  "seo": {
+    "title": "贝瑞医疗 | 核医学场所建设一站式服务商",
+    "keywords": ["核医学", "辐射防护"]
+  }
+}

@@ -1,0 +1,264 @@
+[
+  {
+    "id": "cd48f9d3-1388-49cc-a580-641638275fc6",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "hero",
+    "title": "首屏Hero",
+    "sortOrder": 1,
+    "config": {
+      "tags": ["15+年专业团队", "30+成功案例", "全流程GMP合规"],
+      "badge": "精准医疗 · 核创未来",
+      "title": "核医学场所建设一站式服务商",
+      "description": "贝瑞医疗深耕核医学领域多年，为医疗机构提供从选址评估到智能运维的全生命周期解决方案。"
+    }
+  },
+  {
+    "id": "ae0eaf1e-7836-4fda-84ab-aa6b261be6cf",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "about",
+    "title": "关于我们",
+    "sortOrder": 2,
+    "config": {
+      "title": "关于贝瑞医疗",
+      "subtitle": "专业 · 专注 · 创新",
+      "description": "贝瑞医疗科技（郑州）有限公司是一家专注于核医学场所建设的高新技术企业，业务涵盖放射性药物制备设施、PET/CT机房、核素治疗病房等场所的选址评估、方案设计、辐射防护施工及智能管理系统开发。",
+      "features": [
+        { "icon": "fa-drafting-compass", "text": "工艺设计/专项施工图" },
+        { "icon": "fa-hard-hat", "text": "辐射防护施工/三废处理" },
+        { "icon": "fa-chart-line", "text": "智慧核医学管理系统" },
+        { "icon": "fa-hand-holding-heart", "text": "7×24h运维检测" }
+      ]
+    }
+  },
+  {
+    "id": "202a6fe0-4627-4485-931b-ba8c4eb295b9",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "services",
+    "title": "服务概览",
+    "sortOrder": 3,
+    "config": {
+      "title": "我们的服务",
+      "subtitle": "全流程 · 全方位 · 全周期",
+      "cards": [
+        {
+          "id": "design",
+          "icon": "fa-pencil-ruler",
+          "title": "设计",
+          "description": "选址评估 · 布局优化 · 辐射分区 · GMP标准洁净区设计 · 通风系统独立气流组织",
+          "features": [
+            "辐射控制区/监督区精细化分区，保障医患安全",
+            "独立通风系统设计，气流自非放射区→控制区，排气高效过滤",
+            "衰变池、防护屏蔽、制药区域C级背景局部A级环境设计"
+          ]
+        },
+        {
+          "id": "construction",
+          "icon": "fa-hard-hat",
+          "title": "施工",
+          "description": "辐射防护施工 · 放射性废水处理系统 · 多工种协同管理 · 全程驻点",
+          "features": [
+            "铅防护门窗、铅玻璃、铅板等辐射屏蔽工程",
+            "智能衰变池系统，自动监测与处理放射性废水",
+            "放射性固体废物暂存与处理系统"
+          ]
+        },
+        {
+          "id": "equipment",
+          "icon": "fa-microscope",
+          "title": "设备",
+          "description": "核素治疗监测 · 辐射监测仪器 · 药物操作热室/手套箱",
+          "features": [
+            "核素治疗监测设备",
+            "辐射监测仪器（个人剂量仪、环境监测仪）",
+            "活度计CRC-55tR"
+          ]
+        }
+      ],
+      "detailLinks": [
+        { "id": "service-design", "icon": "fa-pencil-ruler", "text": "设计 · 规划布局" },
+        { "id": "service-construction", "icon": "fa-hard-hat", "text": "施工 · 辐射防护" },
+        { "id": "service-equipment", "icon": "fa-microscope", "text": "设备 · 监测仪器" },
+        { "id": "service-software", "icon": "fa-chart-line", "text": "瑞核V1.0智慧系统" }
+      ]
+    }
+  },
+  {
+    "id": "c989d453-ebc1-4c58-93c3-fa3774619305",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "service-detail",
+    "title": "设计篇",
+    "sortOrder": 4,
+    "config": {
+      "id": "service-design",
+      "badge": "精准设计 · 合规先行",
+      "title": "全流程核医学专项设计",
+      "description": "从选址评估到施工图落地，贝瑞设计团队严格遵循药品GMP、GBZ系列及放射性药品附录，为客户提供功能优化与成本可控的专项设计。",
+      "features": [
+        { "icon": "fa-check-circle", "text": "辐射控制区/监督区精细化分区，保障医患安全" },
+        { "icon": "fa-check-circle", "text": "独立通风系统设计，气流自非放射区→控制区，排气高效过滤" },
+        { "icon": "fa-check-circle", "text": "衰变池、防护屏蔽、制药区域C级背景局部A级环境设计" },
+        { "icon": "fa-check-circle", "text": "药监GMP专家检查及环保、卫评验收一站式技术支持" }
+      ]
+    }
+  },
+  {
+    "id": "26a2cab3-3c4b-4d5d-911d-fc1877de8474",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "service-detail",
+    "title": "施工篇",
+    "sortOrder": 5,
+    "config": {
+      "id": "service-construction",
+      "badge": "专业施工 · 品质保障",
+      "title": "辐射防护施工与三废处理",
+      "description": "拥有多年核医学场所施工经验的专业团队，为客户提供高质量的辐射防护施工和废物处理系统，确保项目顺利通过各项验收。",
+      "features": [
+        { "icon": "fa-check-circle", "text": "铅防护门窗、铅玻璃、铅板等辐射屏蔽工程" },
+        { "icon": "fa-check-circle", "text": "智能衰变池系统，自动监测与处理放射性废水" },
+        { "icon": "fa-check-circle", "text": "放射性固体废物暂存与处理系统" },
+        { "icon": "fa-check-circle", "text": "全程驻点技术指导，确保施工合规" }
+      ]
+    }
+  },
+  {
+    "id": "62653046-284a-4bf3-b811-ba5f44aba416",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "service-detail",
+    "title": "设备篇",
+    "sortOrder": 6,
+    "config": {
+      "id": "service-equipment",
+      "badge": "先进设备 · 精准监测",
+      "title": "核医学设备供应与安装",
+      "description": "提供全套核医学场所所需设备，从辐射监测到废物处理，品质可靠、售后服务完善。",
+      "features": [
+        { "icon": "fa-check-circle", "text": "核素治疗监测设备" },
+        { "icon": "fa-check-circle", "text": "辐射监测仪器（个人剂量仪、环境监测仪）" },
+        { "icon": "fa-check-circle", "text": "活度计CRC-55tR" },
+        { "icon": "fa-check-circle", "text": "药物操作热室/手套箱" }
+      ]
+    }
+  },
+  {
+    "id": "967cb28f-f4ce-4881-bf40-7459c08b40ad",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "service-detail",
+    "title": "瑞核系统",
+    "sortOrder": 7,
+    "config": {
+      "id": "service-software",
+      "badge": "智慧管理 · 数字赋能",
+      "title": "瑞核智慧管理系统V1.0",
+      "description": "自主研发的核医学科智慧管理系统，实现辐射防护动态模拟、人员路径优化与全流程数字化管理。",
+      "features": [
+        { "icon": "fa-check-circle", "text": "辐射剂量数字孪生预演模块" },
+        { "icon": "fa-check-circle", "text": "人员路径优化与实时监控" },
+        { "icon": "fa-check-circle", "text": "设备运行状态智能监测" },
+        { "icon": "fa-check-circle", "text": "7×24小时远程运维支持" }
+      ]
+    }
+  },
+  {
+    "id": "ce32dd33-af9f-42fb-a2bd-d7a937155650",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "advantages",
+    "title": "核心优势",
+    "sortOrder": 8,
+    "config": {
+      "title": "为什么选择贝瑞医疗",
+      "subtitle": "专业能力 · 服务保障 · 技术实力",
+      "items": [
+        { "icon": "fa-chart-line", "value": "10+", "label": "四类《放射性药品使用许可证》取证支持" },
+        { "icon": "fa-users", "value": "15+年", "label": "核医学场所专业团队经验" },
+        { "icon": "fa-building", "value": "30+", "label": "医疗机构建设案例" },
+        { "icon": "fa-file-alt", "value": "100+", "label": "核医学方案技术咨询" }
+      ],
+      "highlights": [
+        { "icon": "fa-book-open", "text": "参编核医学行业规范标准" },
+        { "icon": "fa-hard-hat", "text": "擅长复杂场地改造&狭小空间优化" }
+      ],
+      "badge": "全流程许可证办理支持"
+    }
+  },
+  {
+    "id": "f5bb4ff3-21a1-4c3b-9e9d-8c0aba3ceb76",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "projects",
+    "title": "业绩案例",
+    "sortOrder": 9,
+    "config": {
+      "title": "合作案例 · 实力见证",
+      "subtitle": "全国顶级医院及科研机构信赖之选",
+      "items": [
+        "复旦大学附属中山医院",
+        "陆军军医大学西南医院",
+        "南昌大学第一附属医院",
+        "福建医科大学附属第一医院",
+        "广东省第二人民医院",
+        "宜春市人民医院",
+        "遵义医科大学附属医院",
+        "新疆医科大学附属肿瘤医院",
+        "国家肿瘤区域医疗中心",
+        "远大医药（中国）"
+      ]
+    }
+  },
+  {
+    "id": "fbdb87fb-ddc2-4aa3-ae4f-c4341f850910",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "news",
+    "title": "新闻动态",
+    "sortOrder": 10,
+    "config": {
+      "title": "贝瑞动态 · 核医前沿",
+      "subtitle": "行业资讯 | 技术突破 | 公司要闻",
+      "limit": 3,
+      "showMoreButton": { "text": "查看全部新闻", "link": "/news" }
+    }
+  },
+  {
+    "id": "d16939eb-da99-4738-b88c-4416aed6352a",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "contact",
+    "title": "联系我们",
+    "sortOrder": 11,
+    "config": {
+      "title": "联系贝瑞医疗专家团队",
+      "description": "立即沟通，获取核医学场所建设一站式解决方案。"
+    }
+  },
+  {
+    "id": "33ec99bc-8901-430e-9532-da2856f06a92",
+    "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
+    "type": "cta",
+    "title": "行动召唤",
+    "sortOrder": 12,
+    "config": {
+      "title": "赋能精准医疗 · 共建核医学科标杆",
+      "description": "从设计到验收，贝瑞医疗让核医学场所建设更专业、更安全。"
+    }
+  },
+  {
+    "id": "22cffa67-2302-42f2-98ba-655b7ac30efb",
+    "pageId": "4a260865-a9e2-45ab-a42e-6a100e02f37b",
+    "type": "hero",
+    "title": "新闻页Hero",
+    "sortOrder": 1,
+    "config": {
+      "badge": "贝瑞动态 · 核医前沿",
+      "title": "新闻与洞察",
+      "subtitle": "行业前沿资讯、技术突破、公司要闻及核医学领域深度观察"
+    }
+  },
+  {
+    "id": "389d1ccb-c3c2-449b-b274-6c79ff775589",
+    "pageId": "4a260865-a9e2-45ab-a42e-6a100e02f37b",
+    "type": "news-list",
+    "title": "新闻列表",
+    "sortOrder": 2,
+    "config": {
+      "pageSize": 9,
+      "categories": ["全部", "公司要闻", "技术突破", "行业政策", "展会活动"]
+    }
+  }
+]

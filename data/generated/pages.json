@@ -1,0 +1,20 @@
+[
+  {
+    "id": "760dcc34-df32-4473-96bd-fa021c401837",
+    "name": "首页",
+    "path": "/",
+    "description": "贝瑞医疗首页",
+    "navSortOrder": 1,
+    "isNavVisible": true,
+    "seo": {}
+  },
+  {
+    "id": "4a260865-a9e2-45ab-a42e-6a100e02f37b",
+    "name": "新闻资讯",
+    "path": "/news",
+    "description": "新闻资讯页",
+    "navSortOrder": 2,
+    "isNavVisible": true,
+    "seo": {}
+  }
+]
