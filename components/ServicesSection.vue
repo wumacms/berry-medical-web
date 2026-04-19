@@ -18,12 +18,15 @@
         >
           <i :class="['fas', service.icon, 'text-3xl text-orange-500 mb-4']"></i>
           <h3 class="text-2xl font-semibold text-stone-800 dark:text-stone-200">{{ service.title }}</h3>
+          <p v-if="service.subtitle" class="text-stone-500 dark:text-stone-400 mt-2 text-sm">
+            {{ service.subtitle }}
+          </p>
           <p class="text-stone-500 dark:text-stone-400 mt-2 text-sm">
             {{ service.description }}
           </p>
           <ul class="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-400">
             <li v-for="(feature, idx) in service.features" :key="idx">
-              <i class="fas fa-check-circle text-orange-500 w-4 mr-2"></i> {{ feature }}
+              <i :class="['fas', feature.icon || 'fa-check-circle', 'text-orange-500 w-4 mr-2']"></i> {{ feature.text || feature }}
             </li>
           </ul>
         </div>

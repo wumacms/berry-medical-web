@@ -7,7 +7,7 @@
         <div class="rounded-2xl overflow-hidden shadow-xl order-1">
           <img 
             :src="getImageUrl(equipment.image)" 
-            alt="核医学监测与防护设备" 
+            :alt="equipment.imageAlt || '核医学监测与防护设备'" 
             class="w-full h-auto object-cover"
             loading="lazy"
           >

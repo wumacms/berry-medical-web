@@ -7,7 +7,7 @@
         <div class="rounded-2xl overflow-hidden shadow-xl order-1">
           <img 
             :src="getImageUrl(design.image)" 
-            alt="核医学设计规划与布局" 
+            :alt="design.imageAlt || '核医学设计规划与布局'" 
             class="w-full h-auto object-cover"
             loading="lazy"
           >

@@ -20,7 +20,7 @@
       <div class="flex-1 rounded-2xl overflow-hidden shadow-xl">
         <img 
           :src="getImageUrl(software.image)" 
-          alt="智慧管理系统界面" 
+          :alt="software.imageAlt || '智慧管理系统界面'" 
           class="w-full h-auto object-cover"
           loading="lazy"
         >

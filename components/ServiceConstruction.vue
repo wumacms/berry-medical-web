@@ -23,7 +23,7 @@
         <div class="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
           <img 
             :src="getImageUrl(construction.image)" 
-            alt="核医学辐射防护施工" 
+            :alt="construction.imageAlt || '核医学辐射防护施工'" 
             class="w-full h-auto object-cover"
             loading="lazy"
           >

@@ -20,8 +20,8 @@
         </div>
         <div class="rounded-2xl overflow-hidden shadow-xl">
           <img 
-            :src="getImageUrl('/images/about/team.jpg')" 
-            alt="核医学实验室团队" 
+            :src="getImageUrl(about.image || '/images/about/team.jpg')" 
+            :alt="about.imageAlt || '核医学实验室团队'" 
             class="w-full h-auto object-cover"
             loading="lazy"
           >

@@ -9,19 +9,22 @@
   "icp": "豫ICP备2025123456号",
   "contact": {
     "email": "530051528@qq.com",
-    "phone": ["18503878846", "13215991477"],
+    "phone": [
+      "18503878846",
+      "13215991477"
+    ],
     "address": {
-      "province": "河南省",
       "city": "郑州市",
-      "street": "高新技术产业开发区瑞达路睿达广场1栋14层"
+      "street": "高新技术产业开发区瑞达路睿达广场1栋14层",
+      "province": "河南省"
     }
   },
   "navConfig": {
     "logo": "/images/logos/logo.png",
     "logoAlt": "贝瑞医疗",
     "ctaButton": {
-      "text": "免费咨询",
-      "link": "/#contact"
+      "link": "/#contact",
+      "text": "免费咨询"
     }
   },
   "footerConfig": {
@@ -30,6 +33,9 @@
   },
   "seo": {
     "title": "贝瑞医疗 | 核医学场所建设一站式服务商",
-    "keywords": ["核医学", "辐射防护"]
+    "keywords": [
+      "核医学",
+      "辐射防护"
+    ]
   }
 }
