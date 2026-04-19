@@ -16,5 +16,14 @@
     "navSortOrder": 2,
     "isNavVisible": true,
     "seo": {}
+  },
+  {
+    "id": "7e8d4f2a-3c5b-4e6f-8a9b-0c1d2e3f4a5b",
+    "name": "联系我们",
+    "path": "/contact",
+    "description": "联系我们页面",
+    "navSortOrder": 3,
+    "isNavVisible": true,
+    "seo": {}
   }
 ]

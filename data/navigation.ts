@@ -91,6 +91,6 @@ export const navConfig = {
   logoAlt: '贝瑞医疗',
   ctaButton: {
     text: '免费咨询',
-    link: '#contact'
+    link: '/#contact'
   }
 }

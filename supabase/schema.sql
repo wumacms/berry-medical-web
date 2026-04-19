@@ -103,6 +103,26 @@ CREATE INDEX IF NOT EXISTS idx_news_date ON news(date DESC);
 CREATE INDEX IF NOT EXISTS idx_news_category ON news(category);
 
 -- =============================================
+-- 5. 联系表单提交表 (contact_submissions)
+-- =============================================
+CREATE TABLE IF NOT EXISTS contact_submissions (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  email TEXT,
+  company TEXT,
+  message TEXT,
+  is_processed BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================
+-- 索引设计 - contact_submissions 表
+-- =============================================
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created ON contact_submissions(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_processed ON contact_submissions(is_processed);
+
+-- =============================================
 -- RLS 策略 (Row Level Security)
 -- =============================================
 
@@ -110,12 +130,16 @@ ALTER TABLE websites ENABLE ROW LEVEL SECURITY;
 ALTER TABLE pages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE blocks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE news ENABLE ROW LEVEL SECURITY;
+ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 
 -- 允许公开读取所有数据
 CREATE POLICY "Allow public read websites" ON websites FOR SELECT USING (true);
 CREATE POLICY "Allow public read pages" ON pages FOR SELECT USING (true);
 CREATE POLICY "Allow public read blocks" ON blocks FOR SELECT USING (is_published = true);
 CREATE POLICY "Allow public read news" ON news FOR SELECT USING (is_published = true);
+
+-- 允许公开插入联系表单数据（只允许 INSERT，禁止其他操作）
+CREATE POLICY "Allow public insert contact_submissions" ON contact_submissions FOR INSERT WITH CHECK (true);
 
 -- 授予 service_role 完全访问权限（绕过 RLS）
 GRANT USAGE ON SCHEMA public TO service_role;
@@ -144,4 +168,7 @@ CREATE TRIGGER update_blocks_updated_at BEFORE UPDATE ON blocks
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_news_updated_at BEFORE UPDATE ON news
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_contact_submissions_updated_at BEFORE UPDATE ON contact_submissions
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

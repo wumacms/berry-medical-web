@@ -176,6 +176,14 @@ export const seoConfig: Record<string, SeoConfig> = {
     ogDescription: siteConfig.seo.description,
     ogType: 'website',
     twitterCard: 'summary_large_image'
+  },
+  contact: {
+    title: '联系我们 | 贝瑞医疗 - 核医学场所建设专家',
+    description: '联系贝瑞医疗专家团队，获取核医学场所建设一站式解决方案。电话：18503878846 / 13215991477',
+    ogTitle: '联系我们 | 贝瑞医疗',
+    ogDescription: '立即沟通，获取核医学场所建设一站式解决方案。',
+    ogType: 'website',
+    twitterCard: 'summary_large_image'
   }
 }
 

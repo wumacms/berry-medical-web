@@ -16,7 +16,8 @@ INSERT INTO websites (id, name, domain, company_name, slogan, description, logo,
 -- 2. 页面数据
 INSERT INTO pages (id, website_id, name, path, description, nav_sort_order, is_nav_visible, is_footer_visible) VALUES
   ('760dcc34-df32-4473-96bd-fa021c401837', 'main', '首页', '/', '贝瑞医疗首页', 1, true, true),
-  ('4a260865-a9e2-45ab-a42e-6a100e02f37b', 'main', '新闻资讯', '/news', '新闻资讯页', 2, true, true);
+  ('4a260865-a9e2-45ab-a42e-6a100e02f37b', 'main', '新闻资讯', '/news', '新闻资讯页', 2, true, true),
+  ('7e8d4f2a-3c5b-4e6f-8a9b-0c1d2e3f4a5b', 'main', '联系我们', '/contact', '联系我们页面', 3, true, true);
 
 -- 3. 首页区块数据 - Hero和About
 INSERT INTO blocks (id, page_id, type, title, sort_order, config) VALUES
@@ -38,7 +39,7 @@ INSERT INTO blocks (page_id, type, title, sort_order, config) VALUES
 ('967cb28f-f4ce-4881-bf40-7459c08b40ad', '760dcc34-df32-4473-96bd-fa021c401837', 'service-detail', '瑞核系统', 7,
  '{"id": "service-software", "badge": "智慧管理 · 数字赋能", "title": "瑞核V1.0 核医学智慧管理系统", "image": "/images/services/software.jpg", "imageAlt": "智慧管理系统界面", "description": "1中心+2平台+4维度+N应用，实现设备运行、辐射安全、安防、日常运营全维度管理。物理空间1:1虚拟映射，数据驱动主动预判。", "features": [{"icon": "fa-check-circle", "text": "辐射剂量数字孪生预演模块"}, {"icon": "fa-check-circle", "text": "人员路径优化与实时监控"}, {"icon": "fa-check-circle", "text": "设备运行状态智能监测"}, {"icon": "fa-check-circle", "text": "7×24小时远程运维支持"}]}'::jsonb);
 
--- 5. 优势、案例、新闻、联系、CTA区块
+-- 5. 优势、案例、新闻、CTA区块（首页已移除 contact 区块）
 INSERT INTO blocks (id, page_id, type, title, sort_order, config) VALUES
 ('ce32dd33-af9f-42fb-a2bd-d7a937155650', '760dcc34-df32-4473-96bd-fa021c401837', 'advantages', '核心优势', 8,
  '{"title": "为什么选择贝瑞医疗", "subtitle": "核心技术壁垒 · 深度行业积淀", "items": [{"icon": "fa-chart-line", "value": "10+", "label": "四类《放射性药品使用许可证》取证支持"}, {"icon": "fa-users", "value": "15+年", "label": "核医学场所专业团队经验"}, {"icon": "fa-building", "value": "30+", "label": "医疗机构建设案例"}, {"icon": "fa-file-alt", "value": "100+", "label": "核医学方案技术咨询"}], "highlights": [{"icon": "fa-book-open", "text": "参编核医学行业规范标准"}, {"icon": "fa-hard-hat", "text": "擅长复杂场地改造&狭小空间优化"}], "badge": "全流程许可证办理支持"}'::jsonb),
@@ -46,10 +47,13 @@ INSERT INTO blocks (id, page_id, type, title, sort_order, config) VALUES
  '{"title": "合作案例 · 实力见证", "subtitle": "全国顶级医院及科研机构信赖之选", "items": ["复旦大学附属中山医院", "陆军军医大学西南医院", "南昌大学第一附属医院", "福建医科大学附属第一医院", "广东省第二人民医院", "宜春市人民医院", "遵义医科大学附属医院", "新疆医科大学附属肿瘤医院", "国家肿瘤区域医疗中心", "远大医药（中国）"]}'::jsonb),
 ('fbdb87fb-ddc2-4aa3-ae4f-c4341f850910', '760dcc34-df32-4473-96bd-fa021c401837', 'news', '新闻动态', 10,
  '{"title": "贝瑞动态 · 核医前沿", "subtitle": "行业资讯 | 技术突破 | 公司要闻", "limit": 3, "showMoreButton": {"text": "查看全部新闻", "link": "/news"}}'::jsonb),
-('d16939eb-da99-4738-b88c-4416aed6352a', '760dcc34-df32-4473-96bd-fa021c401837', 'contact', '联系我们', 11,
- '{"title": "联系贝瑞医疗专家团队", "description": "立即沟通，获取核医学场所建设一站式解决方案。"}'::jsonb),
 ('33ec99bc-8901-430e-9532-da2856f06a92', '760dcc34-df32-4473-96bd-fa021c401837', 'cta', '行动召唤', 12,
  '{"title": "赋能精准医疗 · 共建核医学科标杆", "description": "从设计到验收，贝瑞医疗让核医学场所建设更专业、更安全。"}'::jsonb);
+
+-- 5.1 联系我们页面区块
+INSERT INTO blocks (id, page_id, type, title, sort_order, config) VALUES
+('b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e', '7e8d4f2a-3c5b-4e6f-8a9b-0c1d2e3f4a5b', 'contact', '联系我们', 1,
+ '{"title": "联系我们", "description": "立即沟通，获取核医学场所建设一站式解决方案"}'::jsonb);
 
 -- 6. 新闻页区块
 INSERT INTO blocks (id, page_id, type, title, sort_order, config) VALUES

@@ -10,7 +10,6 @@
     <AdvantagesSection />
     <ProjectsSection />
     <NewsSection :latest-news="latestNews" />
-    <ContactSection />
     <CtaSection />
   </div>
 </template>
