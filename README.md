@@ -32,14 +32,14 @@ pnpm install
 # 开发模式
 pnpm dev
 
+# 从 Supabase 获取数据
+pnpm fetch-data
+
 # 构建生产版本
 pnpm build
 
 # 预览生产版本
 pnpm preview
-
-# 从 Supabase 获取数据
-pnpm fetch-data
 ```
 
 ## 项目结构
@@ -47,36 +47,46 @@ pnpm fetch-data
 ```
 ├── assets/              # 静态资源（CSS、图片）
 ├── components/          # Vue 组件
-│   ├── AppHeader.vue    # 网站头部
+│   ├── AppHeader.vue    # 网站头部（动态导航）
 │   ├── AppFooter.vue    # 网站底部
 │   ├── HeroSection.vue  # 首屏区域
 │   ├── AboutSection.vue  # 关于我们
 │   ├── AdvantagesSection.vue  # 核心优势
 │   ├── ServicesSection.vue  # 服务概览
 │   ├── ServiceDetailBlock.vue  # 服务详情通用组件
+│   ├── ProjectsSection.vue  # 业绩案例
 │   ├── NewsSection.vue  # 新闻列表
-│   ├── NewsCard.vue  # 新闻卡片
+│   ├── NewsCard.vue     # 新闻卡片
 │   ├── ContactSection.vue  # 联系方式
-│   └── CtaSection.vue  # CTA 区域
+│   └── CtaSection.vue   # CTA 区域
 ├── composables/         # 组合式函数
-│   ├── useSiteConfig.ts  # 网站配置
-│   ├── useServices.ts  # 服务数据
-│   ├── useAdvantages.ts  # 优势数据
-│   ├── useNews.ts  # 新闻数据
-│   └── useCdnUrl.ts  # CDN 地址
+│   ├── useSiteConfig.ts # 网站配置
+│   ├── useNavigation.ts # 导航菜单（动态生成）
+│   ├── useBlocks.ts     # 区块数据
+│   ├── useNews.ts       # 新闻数据
+│   └── useCdnUrl.ts     # CDN 地址
 ├── data/                # 静态数据文件
 │   ├── site.ts          # 网站基础配置
-│   ├── services.ts     # 服务配置
-│   ├── advantages.ts    # 优势配置
-│   ├── news.ts          # 新闻配置
-│   └── generated/       # 从 Supabase 生成的数据
+│   ├── navigation.ts    # 导航配置
+│   ├── blocks.ts        # 区块数据封装
+│   ├── pages.ts         # 页面数据
+│   ├── services.ts      # 服务配置
+│   └── generated/       # 从 Supabase 生成的数据（勿手动编辑）
+│       ├── website.json # 网站配置
+│       ├── pages.json   # 页面数据
+│       ├── blocks.json  # 区块数据
+│       └── news.json    # 新闻数据
 ├── layouts/             # 布局文件
 ├── pages/               # 页面文件
 │   ├── index.vue        # 首页
 │   └── news/            # 新闻页面
 │       ├── index.vue    # 新闻列表
 │       └── [id].vue     # 新闻详情
-├── supabase/            # 数据库迁移脚本
+├── supabase/            # 数据库脚本
+│   ├── schema.sql       # 表结构定义
+│   └── seed.sql         # 初始数据
+├── scripts/             # 工具脚本
+│   └── fetch-supabase-data.ts  # 数据拉取脚本
 ├── public/              # 公共静态资源
 ├── types/               # TypeScript 类型定义
 ├── nuxt.config.ts       # Nuxt 配置
@@ -91,24 +101,65 @@ pnpm fetch-data
 | `pages/news/index.vue` | `/news` | 新闻列表 |
 | `pages/news/[id].vue` | `/news/:id` | 新闻详情 |
 
-## 数据管理
+## 数据架构
 
-项目使用 Supabase 作为后端数据库，通过 `pnpm fetch-data` 命令从 Supabase 获取数据并生成本地 JSON 文件：
+项目采用 **网站-页面-区块** 三层数据架构：
 
-- `data/generated/site.json` - 网站基础配置
-- `data/generated/services.json` - 服务详情数据
-- `data/generated/news.json` - 新闻文章数据
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│  websites   │────→│   pages     │────→│   blocks    │
+│  (网站配置)  │     │  (页面定义)  │     │  (区块内容)  │
+└─────────────┘     └─────────────┘     └─────────────┘
+                                               │
+                                               ▼
+                                        ┌─────────────┐
+                                        │    news     │
+                                        │  (新闻文章)  │
+                                        └─────────────┘
+```
+
+### 数据流向
+
+```
+Supabase DB → pnpm fetch-data → data/generated/*.json → composables → components
+```
+
+### 生成的数据文件
+
+| 文件 | 说明 | 来源表 |
+|------|------|--------|
+| `website.json` | 网站基础配置 | websites |
+| `pages.json` | 页面信息（用于导航） | pages |
+| `blocks.json` | 页面区块内容 | blocks |
+| `news.json` | 新闻文章数据 | news |
 
 ## 环境变量
 
 ```env
 # Supabase 配置
 SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
 # CDN 配置
 NUXT_PUBLIC_CDN_BASE_URL=your_cdn_url
 ```
+
+## 数据库表结构
+
+详见 [docs/DATABASE_DESIGN.md](./docs/DATABASE_DESIGN.md)
+
+### 核心表
+
+| 表名 | 说明 |
+|------|------|
+| `websites` | 网站基础配置（导航、页脚、SEO等） |
+| `pages` | 页面定义（路由、导航可见性、排序） |
+| `blocks` | 页面区块内容（Hero、About、Services等） |
+| `news` | 新闻文章数据 |
+
+## 开发规范
+
+详见 [.codebuddy/rules](./.codebuddy/rules)
 
 ---
 
