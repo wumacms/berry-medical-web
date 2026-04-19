@@ -97,7 +97,6 @@ pnpm fetch-data
 
 - `data/generated/site.json` - 网站基础配置
 - `data/generated/services.json` - 服务详情数据
-- `data/generated/advantages.json` - 核心优势数据
 - `data/generated/news.json` - 新闻文章数据
 
 ## 环境变量

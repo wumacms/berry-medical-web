@@ -7,7 +7,7 @@
         <p class="text-stone-600 dark:text-stone-400 mt-2">{{ advantages.subtitle }}</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div v-for="(item, index) in advantageList" :key="index" class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center">
+        <div v-for="(item, index) in advantages.items" :key="index" class="bg-stone-50 dark:bg-stone-800 p-6 rounded-xl text-center">
           <i :class="['fas', index === 0 ? 'fa-chart-line' : index === 1 ? 'fa-users' : index === 2 ? 'fa-building' : 'fa-file-alt', 'text-4xl text-orange-500 mb-3']"></i>
           <div class="text-3xl font-bold text-stone-800 dark:text-stone-200">{{ item.value }}</div>
           <p class="text-stone-500">{{ item.label }}</p>
@@ -18,6 +18,5 @@
 </template>
 
 <script setup lang="ts">
-const { advantageList } = useAdvantages()
 const { advantages } = useSiteConfig()
 </script>
