@@ -1,12 +1,15 @@
 /**
  * 导航菜单 composable
- * 从 navigation.ts 读取导航数据
+ * 从 navigation.ts 读取动态生成的导航数据
  */
 
 import { navigationMenu, navConfig, type NavMenuItem } from '~/data/navigation'
+import { useRoute } from 'vue-router'
 
 // 导航菜单 composable
 export function useNavigation() {
+  const route = useRoute()
+  
   // 获取导航菜单
   const menu = computed(() => navigationMenu)
   
@@ -15,10 +18,10 @@ export function useNavigation() {
   
   // 判断当前路径是否激活
   const isActive = (path: string): boolean => {
-    if (typeof window === 'undefined') return false
-    const currentPath = window.location.pathname
-    if (path === '/') return currentPath === '/'
-    return currentPath.startsWith(path)
+    if (path === '/') {
+      return route.path === '/'
+    }
+    return route.path === path || route.path.startsWith(path + '/')
   }
   
   // 判断是否有子菜单
