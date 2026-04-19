@@ -92,6 +92,7 @@ interface SiteConfig {
     title?: string
     subtitle?: string
   }
+  projects: string[]
   contact_info: {
     title?: string
     description?: string
@@ -217,6 +218,7 @@ async function fetchData(): Promise<void> {
       advantages: config.advantages || {},
       services: config.services || {},
       news: config.news || {},
+      projects: config.projects || [],
       contactSection: config.contact_info || {},
       cta: config.cta || {},
       footer: config.footer || {},

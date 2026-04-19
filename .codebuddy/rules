@@ -1,0 +1,250 @@
+# Berry Medical Nuxt 项目规范
+
+## 技术栈
+
+| 分类 | 技术 |
+|------|------|
+| 框架 | Nuxt 3 + Vue 3 (Composition API) |
+| 样式 | Tailwind CSS (brand 色系: orange/amber) |
+| 类型 | TypeScript strict mode |
+| 数据库 | Supabase (PostgreSQL) |
+| 部署 | GitHub Pages (SSG) |
+| 语言 | 中文 (zh-CN) |
+
+## 目录结构
+
+```
+├── .github/workflows/
+│   └── deploy.yml      # GitHub Actions 部署配置 ⭐
+├── scripts/
+│   └── fetch-supabase-data.ts  # 数据拉取脚本 ⭐
+├── supabase/
+│   ├── schema.sql      # 数据库表结构定义 ⭐
+│   └── migrations/     # 数据库迁移脚本 ⭐
+│       ├── 002_add_dynamic_content.sql
+│       └── 003_add_projects_to_site_config.sql
+├── components/        # Vue 组件 (PascalCase)
+├── composables/       # 组合式函数 (useXxx.ts)
+├── pages/            # 页面 (自动路由)
+├── layouts/          # 布局
+├── data/
+│   └── generated/     # Supabase 自动生成 (勿手动编辑)
+├── types/            # TypeScript 类型
+├── assets/css/       # 全局样式
+├── public/images/    # 图片资源
+└── nuxt.config.ts    # Nuxt 配置
+```
+
+## 核心文件说明
+
+### 1. `scripts/fetch-supabase-data.ts`
+
+数据拉取脚本，从 Supabase 获取数据并生成 JSON 文件。
+
+**功能**：
+- 并行获取 `news`、`services`、`advantages`、`site_config` 四张表数据
+- 处理数据格式（字段名转换 snake_case → camelCase）
+- 输出到 `data/generated/*.json`
+
+**使用方式**：
+```bash
+pnpm fetch-data
+# 或
+node scripts/fetch-supabase-data.ts
+```
+
+**数据流向**：
+```
+Supabase → fetch-supabase-data.ts → data/generated/*.json → 组件使用
+```
+
+**输出文件**：
+| 文件 | 说明 |
+|------|------|
+| `news.json` | 新闻列表 |
+| `services.json` | 服务列表 |
+| `advantages.json` | 优势数据 |
+| `site.json` | 网站配置 |
+
+### 2. `supabase/schema.sql`
+
+数据库表结构定义，包含 4 张核心表：
+
+| 表名 | 说明 | 主键 |
+|------|------|------|
+| `news` | 新闻文章 | UUID |
+| `services` | 服务项目 | TEXT (id) |
+| `advantages` | 核心优势 | SERIAL |
+| `site_config` | 网站配置 | TEXT (id='main') |
+
+**表结构特点**：
+- `news` 表：支持分类、标签、浏览量、发布时间
+- `services` 表：支持排序、特性数组、图片
+- `advantages` 表：支持排序、描述
+- `site_config` 表：JSONB 存储配置（contact, hero, about 等）
+
+**RLS 策略**：所有表开启 RLS，公开只读已发布内容
+
+### 3. `supabase/migrations/`
+
+增量迁移脚本，命名格式：`数字+描述.sql`
+
+| 文件 | 说明 |
+|------|------|
+| `002_add_dynamic_content.sql` | 添加动态内容管理字段 |
+| `003_add_projects_to_site_config.sql` | 添加 projects 字段 |
+
+**迁移规则**：
+- 使用 `ADD COLUMN IF NOT EXISTS` 防重复
+- 使用 `UPSERT` 模式确保数据一致性
+- 迁移文件按编号顺序执行
+
+### 4. `.github/workflows/deploy.yml`
+
+GitHub Actions 部署配置，main 分支推送自动触发。
+
+**运行环境**：
+- Node: 20
+- pnpm: 9
+- OS: ubuntu-latest
+
+**部署流程**：
+```yaml
+1. Checkout 代码
+2. Setup pnpm (v9)
+3. Setup Node (v20)
+4. pnpm install
+5. pnpm fetch-data        # 拉取 Supabase 数据
+6. pnpm generate          # 构建静态站点
+7. Create SPA fallback    # 复制 index.html → 404.html
+8. Upload artifact
+9. Deploy to GitHub Pages
+```
+
+**环境变量**：
+| 变量 | 来源 | 说明 |
+|------|------|------|
+| `SUPABASE_URL` | GitHub Secrets | Supabase 项目地址 |
+| `SUPABASE_SERVICE_ROLE_KEY` | GitHub Secrets | 服务端密钥 |
+| `NUXT_PUBLIC_CDN_BASE_URL` | CI 硬编码 | CDN 地址 |
+
+## 数据库表结构
+
+### news (新闻表)
+```sql
+- id: UUID (PK)
+- title: TEXT
+- excerpt: TEXT
+- content: TEXT
+- date: DATE
+- category: TEXT
+- image: TEXT
+- views: INTEGER
+- tags: TEXT[]
+- is_published: BOOLEAN
+- created_at, updated_at: TIMESTAMP
+```
+
+### services (服务表)
+```sql
+- id: TEXT (PK)
+- title: TEXT
+- badge: TEXT
+- description: TEXT
+- features: TEXT[]
+- image: TEXT
+- sort_order: INTEGER
+- is_published: BOOLEAN
+```
+
+### advantages (优势表)
+```sql
+- id: SERIAL (PK)
+- value: TEXT
+- label: TEXT
+- description: TEXT
+- sort_order: INTEGER
+- is_published: BOOLEAN
+```
+
+### site_config (网站配置表)
+```sql
+- id: TEXT (PK='main')
+- name, company_name, slogan, description, logo, url, icp
+- contact: JSONB
+- hero, about, advantages, services, news: JSONB
+- contact_info, cta, footer, seo: JSONB
+```
+
+## 代码规范
+
+### Vue 组件
+```vue
+<script setup lang="ts">
+const props = defineProps<{ title: string }>()
+</script>
+
+<template>
+  <!-- ========== Hero 首屏 ========== -->
+  <section>...</section>
+</template>
+```
+
+### Composables
+- 文件名: `useXxx.ts`
+- 返回命名对象，便于解构
+
+### TypeScript
+- 启用 strict mode
+- 禁止隐式 any
+- 优先使用 `const`
+
+## 样式规范
+
+- 品牌色: `brand-*` (50-900)
+- 响应式: `sm md lg xl 2xl`
+- Dark mode: `dark:` 前缀
+- 图标: Font Awesome (`fas fab`)
+- 图片: 使用 `useCdnUrl()` 处理 CDN 路径
+
+## SEO 规范
+
+- 使用 `useSeo()` composable
+- 必须包含: title, description, og tags
+- 语言: `lang="zh-CN"`
+
+## 开发命令
+
+```bash
+pnpm dev          # 开发模式
+pnpm fetch-data   # 拉取 Supabase 数据 (部署前必须执行)
+pnpm generate     # 构建静态站点
+pnpm preview      # 预览构建结果
+```
+
+## 部署
+
+### 访问地址
+- `https://wumacms.github.io/berry-medical-nuxt/`
+- baseURL: `/berry-medical-nuxt/`
+
+### 预渲染路由
+| 路由 | 说明 |
+|------|------|
+| `/` | 首页 |
+| `/news` | 新闻列表 |
+| `/news/1/2/3` | 新闻详情 |
+
+### 部署前检查
+- [ ] 运行 `pnpm fetch-data`
+- [ ] 页面无 404
+- [ ] 图片正常加载
+- [ ] 响应式布局正常
+
+## 禁止事项
+
+- ❌ 手动编辑 `data/generated/` 目录
+- ❌ 使用 `var` 声明变量
+- ❌ 使用 Options API
+- ❌ 硬编码敏感信息
+- ❌ 模板内联样式 (除动态计算外)

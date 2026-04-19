@@ -1,4 +1,69 @@
-import siteData from './generated/site.json'
+import siteDataRaw from './generated/site.json'
+
+// JSON 数据类型（与 site.json 结构对应）
+interface SiteDataJson {
+  name?: string
+  companyName?: string
+  slogan?: string
+  description?: string
+  logo?: string
+  url?: string
+  icp?: string
+  contact?: {
+    phone?: string[]
+    email?: string
+    website?: string
+    address?: {
+      city?: string
+      province?: string
+      street?: string
+      postalCode?: string
+    }
+  }
+  hero?: {
+    badge?: string
+    title?: string
+    description?: string
+    tags?: string[]
+  }
+  about?: {
+    title?: string
+    subtitle?: string
+    description?: string
+    features?: { icon: string; text: string }[]
+  }
+  advantages?: {
+    title?: string
+    subtitle?: string
+  }
+  services?: {
+    title?: string
+    subtitle?: string
+  }
+  news?: {
+    title?: string
+    subtitle?: string
+  }
+  projects?: string[]
+  contactSection?: {
+    title?: string
+    description?: string
+  }
+  cta?: {
+    title?: string
+    description?: string
+  }
+  footer?: {
+    description?: string
+  }
+  seo?: {
+    title?: string
+    description?: string
+    keywords?: string[]
+  }
+}
+
+const siteData = siteDataRaw as SiteDataJson
 
 // 网站基础配置
 export interface SiteConfig {
@@ -45,6 +110,7 @@ export interface SiteConfig {
     title: string
     subtitle: string
   }
+  projects: string[]
   contactSection: {
     title: string
     description: string
@@ -141,6 +207,14 @@ export const siteConfig: SiteConfig = {
     title: siteData?.news?.title || '贝瑞动态 · 核医前沿',
     subtitle: siteData?.news?.subtitle || '行业资讯 | 技术突破 | 公司要闻'
   },
+  projects: siteData?.projects || [
+    '复旦大学附属中山医院',
+    '陆军军医大学西南医院',
+    '南昌大学第一附属医院',
+    '福建医科大学附属第一医院',
+    '广东省第二人民医院',
+    '宜春市人民医院'
+  ],
   contactSection: {
     title: siteData?.contactSection?.title || '联系贝瑞医疗专家团队',
     description: siteData?.contactSection?.description || '立即沟通，获取核医学场所建设一站式解决方案。'

@@ -39,6 +39,7 @@ export function useSiteConfig() {
     contact: siteConfig.contact
   }))
   const cta = computed(() => siteConfig.cta)
+  const projects = computed(() => siteConfig.projects)
   const footer = computed(() => siteConfig.footer)
 
   return {
@@ -57,6 +58,7 @@ export function useSiteConfig() {
     services,
     news,
     cta,
+    projects,
     footer
   }
 }
