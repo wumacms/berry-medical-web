@@ -91,16 +91,26 @@
         <template v-for="item in menu" :key="item.path">
           <!-- 有子菜单的项 -->
           <details v-if="hasChildren(item)" class="group">
-            <summary class="flex justify-between items-center cursor-pointer list-none py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800">
+            <summary 
+              class="flex justify-between items-center cursor-pointer list-none py-2 font-medium border-b border-stone-100 dark:border-stone-800 transition"
+              :class="{
+                'text-orange-600 dark:text-orange-400': isActive(item.path),
+                'text-stone-800 dark:text-stone-200': !isActive(item.path)
+              }"
+            >
               {{ item.name }}
               <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
             </summary>
-            <div class="pl-4 mt-2 flex flex-col gap-2 text-stone-600 dark:text-stone-400 text-sm">
+            <div class="pl-4 mt-2 flex flex-col gap-2 text-sm">
               <NuxtLink 
                 v-for="child in item.children" 
                 :key="child.path"
                 :to="child.path" 
-                class="py-1.5 hover:text-orange-600 transition" 
+                class="py-1.5 transition"
+                :class="{
+                  'text-orange-600 dark:text-orange-400': isActive(child.path),
+                  'text-stone-600 dark:text-stone-400 hover:text-orange-600': !isActive(child.path)
+                }"
                 @click="closeMobileMenu"
               >
                 {{ child.name }}
@@ -111,8 +121,12 @@
           <NuxtLink 
             v-else 
             :to="item.path" 
-            class="py-2 text-stone-800 dark:text-stone-200 font-medium border-b border-stone-100 dark:border-stone-800" 
-            :class="{ 'border-transparent': item === menu[menu.length - 1] }"
+            class="py-2 font-medium border-b border-stone-100 dark:border-stone-800 transition" 
+            :class="{ 
+              'border-transparent': item === menu[menu.length - 1],
+              'text-orange-600 dark:text-orange-400': isActive(item.path),
+              'text-stone-800 dark:text-stone-200': !isActive(item.path)
+            }"
             @click="closeMobileMenu"
           >
             {{ item.name }}

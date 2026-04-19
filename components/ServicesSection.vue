@@ -1,6 +1,6 @@
 <template>
   <!-- ========== 3. 服务内容大区块 (设计篇+施工篇+设备篇) ========== -->
-  <section class="py-20 bg-stone-50 dark:bg-stone-800/30 scroll-mt-20">
+  <section id="service-design" class="py-20 bg-stone-50 dark:bg-stone-800/30 scroll-mt-20">
     <div class="max-w-7xl mx-auto px-6 md:px-10">
       <div class="text-center max-w-3xl mx-auto">
         <span class="text-orange-600 font-semibold text-sm uppercase tracking-wider">
