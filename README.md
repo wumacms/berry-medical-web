@@ -53,10 +53,7 @@ pnpm fetch-data
 │   ├── AboutSection.vue  # 关于我们
 │   ├── AdvantagesSection.vue  # 核心优势
 │   ├── ServicesSection.vue  # 服务概览
-│   ├── ServiceDesign.vue  # 设计服务详情
-│   ├── ServiceConstruction.vue  # 施工服务详情
-│   ├── ServiceEquipment.vue  # 设备服务详情
-│   ├── ServiceSoftware.vue  # 软件服务详情
+│   ├── ServiceDetailBlock.vue  # 服务详情通用组件
 │   ├── NewsSection.vue  # 新闻列表
 │   ├── NewsCard.vue  # 新闻卡片
 │   ├── ContactSection.vue  # 联系方式

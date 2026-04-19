@@ -1,17 +1,5 @@
 [
   {
-    "id": "22cffa67-2302-42f2-98ba-655b7ac30efb",
-    "pageId": "4a260865-a9e2-45ab-a42e-6a100e02f37b",
-    "type": "hero",
-    "title": "新闻页Hero",
-    "sortOrder": 1,
-    "config": {
-      "badge": "贝瑞动态 · 核医前沿",
-      "title": "新闻与洞察",
-      "subtitle": "行业前沿资讯、技术突破、公司要闻及核医学领域深度观察"
-    }
-  },
-  {
     "id": "cd48f9d3-1388-49cc-a580-641638275fc6",
     "pageId": "760dcc34-df32-4473-96bd-fa021c401837",
     "type": "hero",
@@ -26,6 +14,18 @@
       "badge": "精准医疗 · 核创未来",
       "title": "专注核医学场所\n一站式服务商",
       "description": "从选址规划、辐射防护施工到智慧管理系统，贝瑞医疗为全国顶级医疗机构提供全产业链闭环解决方案。"
+    }
+  },
+  {
+    "id": "22cffa67-2302-42f2-98ba-655b7ac30efb",
+    "pageId": "4a260865-a9e2-45ab-a42e-6a100e02f37b",
+    "type": "hero",
+    "title": "新闻页Hero",
+    "sortOrder": 1,
+    "config": {
+      "badge": "贝瑞动态 · 核医前沿",
+      "title": "新闻与洞察",
+      "subtitle": "行业前沿资讯、技术突破、公司要闻及核医学领域深度观察"
     }
   },
   {
