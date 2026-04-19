@@ -117,6 +117,11 @@ CREATE POLICY "Allow public read pages" ON pages FOR SELECT USING (true);
 CREATE POLICY "Allow public read blocks" ON blocks FOR SELECT USING (is_published = true);
 CREATE POLICY "Allow public read news" ON news FOR SELECT USING (is_published = true);
 
+-- 授予 service_role 完全访问权限（绕过 RLS）
+GRANT USAGE ON SCHEMA public TO service_role;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO service_role;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO service_role;
+
 -- =============================================
 -- 触发器：自动更新时间戳
 -- =============================================
