@@ -22,4 +22,9 @@ useSeo('home')
 const { design, construction, equipment, software } = useServices()
 // 获取新闻数据
 const { latestNews } = useNews()
+
+// 跳过 supabase 认证重定向（确保公开页面不会被拦截）
+definePageMeta({
+  layout: 'default'
+})
 </script>

@@ -10,12 +10,13 @@ export default defineNuxtConfig({
       login: '/admin/login',
       callback: '/admin/confirm',
       exclude: [
-        '/admin/login*',
-        // 前台公开页面 - 不需要认证
+        '/admin/login',
+        '/admin/login/**',
         '/',
         '/news',
         '/news/**',
         '/contact',
+        '/berry-medical-nuxt',
         '/berry-medical-nuxt/',
         '/berry-medical-nuxt/news',
         '/berry-medical-nuxt/news/**',

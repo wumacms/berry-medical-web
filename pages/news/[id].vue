@@ -204,6 +204,11 @@ const copyLink = async () => {
     alert('链接已复制到剪贴板')
   }
 }
+
+// 跳过 supabase 认证重定向（确保公开页面不会被拦截）
+definePageMeta({
+  layout: 'default'
+})
 </script>
 
 <style scoped>
