@@ -82,11 +82,6 @@ useSeoMeta({
   ogDescription: newsSection.value.subtitle
 })
 
-// 跳过 supabase 认证重定向（确保公开页面不会被拦截）
-definePageMeta({
-  layout: 'default'
-})
-
 // 结构化数据 - BreadcrumbList
 useHead({
   script: [{
