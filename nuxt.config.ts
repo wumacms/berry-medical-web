@@ -52,13 +52,14 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/news': { prerender: true },
-    '/news/**': { prerender: true }
+    '/news/**': { prerender: true },
+    '/contact': { prerender: true }
   },
 
   nitro: {
     prerender: {
       failOnError: false,
-      routes: ['/', '/news', '/news/1', '/news/2', '/news/3']
+      routes: ['/', '/news', '/news/1', '/news/2', '/news/3', '/contact']
     }
   }
 })
