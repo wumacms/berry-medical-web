@@ -117,11 +117,11 @@ export interface BlockConfig {
   features2?: { icon: string; text: string }[]
   
   // Advantages 区块
-  items?: AdvantageItem[]
+  advantages?: AdvantageItem[]
   highlights?: { icon: string; text: string }[]
   
   // Projects 区块
-  items?: string[]
+  projectItems?: string[]
   
   // News/News-list 区块
   limit?: number

@@ -3,7 +3,27 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
+
+  supabase: {
+    redirectOptions: {
+      login: '/admin/login',
+      callback: '/admin/confirm',
+      exclude: [
+        '/admin/login*',
+        // 前台公开页面 - 不需要认证
+        '/',
+        '/news',
+        '/news/**',
+        '/contact',
+        '/berry-medical-nuxt/',
+        '/berry-medical-nuxt/news',
+        '/berry-medical-nuxt/news/**',
+        '/berry-medical-nuxt/contact'
+      ]
+    },
+    types: '~/types/supabase-database'
+  },
 
   runtimeConfig: {
     public: {
@@ -53,7 +73,9 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/news': { prerender: true },
     '/news/**': { prerender: true },
-    '/contact': { prerender: true }
+    '/contact': { prerender: true },
+    // 管理后台使用 SSR 模式（需要认证）
+    '/admin/**': { ssr: false }
   },
 
   nitro: {

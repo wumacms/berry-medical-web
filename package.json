@@ -9,9 +9,11 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "fetch-data": "tsx scripts/fetch-supabase-data.ts",
+    "create-admin": "tsx scripts/create-admin.ts",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/supabase": "^2.0.5",
     "@supabase/supabase-js": "^2.103.3",
     "dotenv": "^17.4.2",
     "nuxt": "^3.17.4",

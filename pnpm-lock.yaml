@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@nuxtjs/supabase':
+        specifier: ^2.0.5
+        version: 2.0.5
       '@supabase/supabase-js':
         specifier: ^2.103.3
         version: 2.103.3
@@ -512,6 +515,9 @@ packages:
         optional: true
       rollup-plugin-visualizer:
         optional: true
+
+  '@nuxtjs/supabase@2.0.5':
+    resolution: {integrity: sha512-BC9nA7CunW2sGvHD7rvODwGoKmis3SAGt9q2AwDdmS+37tknTtwq3+cpTudKiFVDilUT7zuWVT9B8rk+vLz+6A==}
 
   '@nuxtjs/tailwindcss@6.14.0':
     resolution: {integrity: sha512-30RyDK++LrUVRgc2A85MktGWIZoRQgeQKjE4CjjD64OXNozyl+4ScHnnYgqVToMM6Ch2ZG2W4wV2J0EN6F0zkQ==}
@@ -1262,6 +1268,11 @@ packages:
     resolution: {integrity: sha512-fUvKtSXMUk1BkApVwAurWtHF4Vzbb0UB9aC/fQXrRBek7Ta3Kaora+wHf/fGwFNQs7uRz+mvjIVpzLfpR32VXA==}
     engines: {node: '>=20.0.0'}
 
+  '@supabase/ssr@0.10.2':
+    resolution: {integrity: sha512-JFbchN63CXLFHJRNT7udec4/RoD9PmXkSGko3QSO6vUuqGBtSzdmxR7FPfQNr7SuFd65I7Xv46q66ALjEN1cgQ==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.102.1
+
   '@supabase/storage-js@2.103.3':
     resolution: {integrity: sha512-5bAIEubrw5keHcdKR2RTois0O1M2Ilx4UYuzOzc07G6mLGCPS/8t1nbC6Vq451pnxR3sK+rmtFHWb9CY/OPjAw==}
     engines: {node: '>=20.0.0'}
@@ -1754,6 +1765,10 @@ packages:
 
   cookie-es@3.1.1:
     resolution: {integrity: sha512-UaXxwISYJPTr9hwQxMFYZ7kNhSXboMXP+Z3TRX6f1/NyaGPfuNUZOWP1pUEb75B2HjfklIYLVRfWiFZJyC6Npg==}
+
+  cookie@1.1.1:
+    resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
+    engines: {node: '>=18'}
 
   cookies@0.9.1:
     resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
@@ -4587,6 +4602,16 @@ snapshots:
       - vue-tsc
       - yaml
 
+  '@nuxtjs/supabase@2.0.5':
+    dependencies:
+      '@supabase/ssr': 0.10.2(@supabase/supabase-js@2.103.3)
+      '@supabase/supabase-js': 2.103.3
+      defu: 6.1.7
+      pathe: 2.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@nuxtjs/tailwindcss@6.14.0(magicast@0.5.2)(tsx@4.21.0)(yaml@2.8.3)':
     dependencies:
       '@nuxt/kit': 3.21.2(magicast@0.5.2)
@@ -5067,6 +5092,11 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  '@supabase/ssr@0.10.2(@supabase/supabase-js@2.103.3)':
+    dependencies:
+      '@supabase/supabase-js': 2.103.3
+      cookie: 1.1.1
 
   '@supabase/storage-js@2.103.3':
     dependencies:
@@ -5626,6 +5656,8 @@ snapshots:
   cookie-es@2.0.1: {}
 
   cookie-es@3.1.1: {}
+
+  cookie@1.1.1: {}
 
   cookies@0.9.1:
     dependencies:
