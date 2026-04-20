@@ -1,13 +1,45 @@
-# Supabase Edge Function 部署说明
+# Supabase Edge Functions 部署说明
 
 ## 功能说明
 
-创建了 `contact-submit` Edge Function 来处理联系表单提交。
+### contact-submit
+
+处理联系表单提交，将数据存储到 `contact_submissions` 表。
+
+**功能：**
+- 服务端验证，防止恶意请求
+- 数据持久化存储
+- 返回提交结果
+
+**请求格式：**
+```json
+{
+  "name": "姓名",
+  "phone": "手机号",
+  "email": "邮箱",
+  "message": "留言内容"
+}
+```
 
 **优势：**
 - 服务端验证，防止恶意请求
 - 敏感操作在服务端完成，安全性更高
 - 可添加更复杂的业务逻辑
+
+## 本地开发
+
+```bash
+# 启动本地 Supabase 开发环境
+supabase start
+
+# 部署 Edge Function 到本地
+supabase functions serve contact-submit --env-file .env.local
+
+# 测试本地 Edge Function
+curl -X POST http://localhost:54321/functions/v1/contact-submit \
+  -H "Content-Type: application/json" \
+  -d '{"name":"测试用户","phone":"13800138000","email":"test@example.com","message":"测试消息"}'
+```
 
 ## 部署方式
 
@@ -56,3 +88,9 @@ curl -X POST https://ksfefrrvqvksrglprbyu.supabase.co/functions/v1/contact-submi
 ```json
 {"success":true,"message":"提交成功"}
 ```
+
+## 项目中的 Edge Functions
+
+| Function | 说明 | 状态 |
+|----------|------|------|
+| `contact-submit` | 联系表单提交 | ✅ 已部署 |

@@ -256,6 +256,14 @@ CREATE TRIGGER update_news_updated_at BEFORE UPDATE ON news
 | nav | AppHeader.vue | pages.json (筛选 is_nav_visible) |
 | footer | AppFooter.vue | website.footer_config |
 
+### 3.3 页面通用组件
+
+| 组件 | 说明 |
+|------|------|
+| PageHero.vue | 页面通用头部（标题 + 面包屑） |
+| NewsCard.vue | 新闻卡片（用于列表展示） |
+| ToastNotification.vue | 提示通知组件 |
+
 ### 3.3 导航菜单动态生成
 
 导航菜单根据 `pages` 表中 `is_nav_visible = true` 的记录动态生成：
@@ -312,18 +320,42 @@ pnpm generate
 pnpm preview
 ```
 
-## 六、文件清单
+## 六、Composables 与数据层
+
+### 6.1 Composables 清单
+
+| 文件 | 说明 |
+|------|------|
+| `composables/useSiteConfig.ts` | 网站配置（websites 表数据） |
+| `composables/useNavigation.ts` | 导航菜单（动态生成） |
+| `composables/useBlocks.ts` | 区块数据（blocks 表） |
+| `composables/useNews.ts` | 新闻数据（news 表） |
+| `composables/useServices.ts` | 服务数据（区块数据封装） |
+| `composables/useContactForm.ts` | 联系表单提交（调用 Edge Function） |
+| `composables/useCdnUrl.ts` | CDN 地址拼接 |
+| `composables/useToast.ts` | 提示通知状态管理 |
+
+### 6.2 数据文件
+
+| 文件 | 说明 |
+|------|------|
+| `data/generated/website.json` | 网站配置（生成） |
+| `data/generated/pages.json` | 页面数据（生成） |
+| `data/generated/blocks.json` | 区块数据（生成） |
+| `data/generated/news.json` | 新闻数据（生成） |
+| `data/site.ts` | 网站配置封装 |
+| `data/navigation.ts` | 导航配置封装 |
+| `data/blocks.ts` | 区块数据封装 |
+| `data/pages.ts` | 页面数据封装 |
+| `data/news.ts` | 新闻数据封装 |
+| `data/services.ts` | 服务数据封装 |
+
+## 七、文件清单
 
 | 文件路径 | 说明 |
 |----------|------|
 | `supabase/schema.sql` | 数据库表结构定义 |
 | `supabase/seed.sql` | 初始数据脚本 |
+| `supabase/migrations/` | 数据库迁移文件 |
+| `supabase/functions/contact-submit/` | 联系表单 Edge Function |
 | `scripts/fetch-supabase-data.ts` | 数据拉取脚本 |
-| `data/generated/website.json` | 网站配置（生成） |
-| `data/generated/pages.json` | 页面数据（生成） |
-| `data/generated/blocks.json` | 区块数据（生成） |
-| `data/generated/news.json` | 新闻数据（生成） |
-| `composables/useSiteConfig.ts` | 网站配置 composable |
-| `composables/useNavigation.ts` | 导航菜单 composable |
-| `composables/useBlocks.ts` | 区块数据 composable |
-| `composables/useNews.ts` | 新闻数据 composable |

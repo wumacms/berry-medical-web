@@ -42,6 +42,48 @@ pnpm build
 pnpm preview
 ```
 
+## 部署前准备
+
+> ⚠️ **重要**：首次部署项目前，必须按顺序完成以下步骤：
+
+### 1. 创建 Supabase 项目
+
+1. 访问 [Supabase Dashboard](https://supabase.com/dashboard) 创建新项目
+2. 获取项目 URL 和 `service_role` key
+
+### 2. 创建数据库表
+
+在 Supabase SQL Editor 中执行 `supabase/schema.sql` 创建表结构。
+
+### 3. 导入初始数据（可选）
+
+执行 `supabase/seed.sql` 导入示例数据。
+
+### 4. 部署 contact-submit Edge Function
+
+通过 Supabase Dashboard 手动部署：
+
+1. 访问 [Supabase Dashboard](https://supabase.com/dashboard)
+2. 选择项目 `berry-medical-nuxt`
+3. 导航到 **Edge Functions**
+4. 点击 **New Function**
+5. 在编辑器中粘贴 `supabase/functions/contact-submit/index.ts` 的代码
+6. 点击 **保存**
+
+> 详见 [supabase/functions/README.md](./supabase/functions/README.md)
+
+### 5. 配置 GitHub Secrets
+
+在 GitHub 仓库 `Settings → Secrets and variables → Actions` 中添加：
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `NUXT_PUBLIC_SUPABASE_URL`
+- `NUXT_PUBLIC_SUPABASE_ANON_KEY`
+
+### 6. 推送代码触发部署
+
+推送到 `main` 分支，GitHub Actions 将自动构建并部署。
+
 ## 项目结构
 
 ```
@@ -58,13 +100,19 @@ pnpm preview
 │   ├── NewsSection.vue  # 新闻列表
 │   ├── NewsCard.vue     # 新闻卡片
 │   ├── ContactSection.vue  # 联系方式
-│   └── CtaSection.vue   # CTA 区域
+│   ├── CtaSection.vue   # CTA 区域
+│   ├── PageHero.vue     # 页面通用头部
+│   ├── ToastNotification.vue  # 提示通知组件
+│   └── HelloWorld.vue   # 示例组件
 ├── composables/         # 组合式函数
 │   ├── useSiteConfig.ts # 网站配置
 │   ├── useNavigation.ts # 导航菜单（动态生成）
 │   ├── useBlocks.ts     # 区块数据
 │   ├── useNews.ts       # 新闻数据
-│   └── useCdnUrl.ts     # CDN 地址
+│   ├── useServices.ts   # 服务数据
+│   ├── useContactForm.ts # 联系表单处理
+│   ├── useCdnUrl.ts     # CDN 地址
+│   └── useToast.ts      # 提示通知
 ├── data/                # 静态数据文件
 │   ├── site.ts          # 网站基础配置
 │   ├── navigation.ts    # 导航配置
@@ -84,7 +132,11 @@ pnpm preview
 │       └── [id].vue     # 新闻详情
 ├── supabase/            # 数据库脚本
 │   ├── schema.sql       # 表结构定义
-│   └── seed.sql         # 初始数据
+│   ├── seed.sql         # 初始数据
+│   ├── functions/       # Edge Functions
+│   │   └── contact-submit/  # 联系表单提交
+│   │       └── index.ts
+│   └── migrations/      # 数据库迁移文件
 ├── scripts/             # 工具脚本
 │   └── fetch-supabase-data.ts  # 数据拉取脚本
 ├── public/              # 公共静态资源
@@ -135,6 +187,8 @@ Supabase DB → pnpm fetch-data → data/generated/*.json → composables → co
 
 ## 环境变量
 
+### 本地开发 (.env.local)
+
 ```env
 # Supabase 配置
 SUPABASE_URL=your_supabase_url
@@ -144,7 +198,20 @@ SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 NUXT_PUBLIC_CDN_BASE_URL=your_cdn_url
 ```
 
-## 数据库表结构
+### GitHub Secrets (CI/CD 部署)
+
+在 GitHub 仓库的 `Settings → Secrets and variables → Actions` 中配置：
+
+| Secret 名称 | 说明 | 来源 |
+|------------|------|------|
+| `SUPABASE_URL` | Supabase 项目 URL | Supabase Dashboard → Project Settings → API |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase Service Role Key | Supabase Dashboard → Project Settings → API |
+| `NUXT_PUBLIC_SUPABASE_URL` | 公开的 Supabase URL | 同 SUPABASE_URL |
+| `NUXT_PUBLIC_SUPABASE_ANON_KEY` | 公开的 Anon Key | Supabase Dashboard → Project Settings → API |
+
+> **注意**：`NUXT_PUBLIC_CDN_BASE_URL` 在 `deploy.yml` 中已硬编码为 `https://wumacms.github.io/berry-medical-nuxt`，如需更改请修改该文件。
+
+## 数据库与后端
 
 详见 [docs/DATABASE_DESIGN.md](./docs/DATABASE_DESIGN.md)
 
@@ -156,6 +223,42 @@ NUXT_PUBLIC_CDN_BASE_URL=your_cdn_url
 | `pages` | 页面定义（路由、导航可见性、排序） |
 | `blocks` | 页面区块内容（Hero、About、Services等） |
 | `news` | 新闻文章数据 |
+| `contact_submissions` | 联系表单提交记录 |
+
+### 功能模块
+
+#### 联系表单（Contact Form）
+
+用户提交的联系表单数据通过 Edge Function 处理后存储到 `contact_submissions` 表。
+
+**前端调用**：`composables/useContactForm.ts` → `useContactForm().submit()`
+
+**后端处理**：`supabase/functions/contact-submit/index.ts`
+
+**API 端点**：`POST /functions/v1/contact-submit`
+
+**请求格式**：
+```json
+{
+  "name": "姓名（必填）",
+  "phone": "手机号（必填，1开头的11位数字）",
+  "email": "邮箱（可选）",
+  "company": "公司（可选）",
+  "message": "留言（可选）"
+}
+```
+
+**响应格式**：
+```json
+{
+  "success": true,
+  "message": "提交成功"
+}
+```
+
+### Edge Functions
+
+详见 [supabase/functions/README.md](./supabase/functions/README.md)
 
 ## 开发规范
 
