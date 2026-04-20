@@ -60,11 +60,12 @@ export function useContactForm() {
     phone: ''
   })
 
-  // 创建 Supabase 客户端
-  const supabase = createClient(
-    'https://ksfefrrvqvksrglprbyu.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzZmVmcnJ2cXZrc3JnbHByYnl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTE5MDYsImV4cCI6MjA5MjA4NzkwNn0.lq8QpAviDT7seWhicwtmsglYWv5dSTqq_grEZ1eRNig'
-  )
+  // 从环境变量获取 Supabase 配置
+  const config = useRuntimeConfig()
+  const supabaseUrl = config.public.supabaseUrl as string
+  const supabaseAnonKey = config.public.supabaseAnonKey as string
+
+  const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
   // 清除字段错误
   const clearFieldError = (field: 'name' | 'phone') => {
