@@ -62,6 +62,7 @@ export function useContactForm() {
   // 从环境变量获取 Supabase Edge Function URL
   const config = useRuntimeConfig()
   const supabaseUrl = config.public.supabaseUrl as string
+  const supabaseAnonKey = config.public.supabaseAnonKey as string
   const edgeFunctionUrl = `${supabaseUrl}/functions/v1/contact-submit`
 
   // 清除字段错误
@@ -126,6 +127,8 @@ export function useContactForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
         },
         body: JSON.stringify({
           name: formData.name.trim(),
