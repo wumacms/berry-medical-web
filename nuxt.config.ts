@@ -6,22 +6,11 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
 
   supabase: {
+    // 禁用自动重定向，改为手动处理
     redirectOptions: {
-      login: '/admin/login',
-      callback: '/admin/confirm',
-      exclude: [
-        '/admin/login',
-        '/admin/login/**',
-        '/',
-        '/news',
-        '/news/**',
-        '/contact',
-        '/berry-medical-nuxt',
-        '/berry-medical-nuxt/',
-        '/berry-medical-nuxt/news',
-        '/berry-medical-nuxt/news/**',
-        '/berry-medical-nuxt/contact'
-      ]
+      login: false,
+      callback: false,
+      exclude: []
     },
     types: '~/types/supabase-database'
   },
