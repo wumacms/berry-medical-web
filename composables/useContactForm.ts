@@ -3,6 +3,7 @@
  * 处理表单验证和 Supabase 数据提交
  */
 import { ref, reactive } from 'vue'
+import { createClient } from '@supabase/supabase-js'
 
 // 表单数据类型
 export interface ContactFormData {
@@ -58,6 +59,12 @@ export function useContactForm() {
     name: '',
     phone: ''
   })
+
+  // 创建 Supabase 客户端
+  const supabase = createClient(
+    'https://ksfefrrvqvksrglprbyu.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzZmVmcnJ2cXZrc3JnbHByYnl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTE5MDYsImV4cCI6MjA5MjA4NzkwNn0.lq8QpAviDT7seWhicwtmsglYWv5dSTqq_grEZ1eRNig'
+  )
 
   // 清除字段错误
   const clearFieldError = (field: 'name' | 'phone') => {
@@ -116,26 +123,32 @@ export function useContactForm() {
     state.isSubmitting = true
 
     try {
-      const config = useRuntimeConfig()
-      const baseURL = config.app.baseURL || '/'
-      const response = await $fetch(`${baseURL}api/contact`, {
-        method: 'POST',
-        body: {
+      // 直接使用 Supabase 客户端插入数据
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([{
           name: formData.name.trim(),
           phone: formData.phone.trim(),
           email: formData.email.trim() || null,
           company: formData.company.trim() || null,
           message: formData.message.trim() || null
-        }
-      })
+        }])
+
+      if (error) {
+        console.error('Supabase error:', error)
+        state.isError = true
+        state.errorMessage = '提交失败，请稍后重试'
+        return false
+      }
 
       state.isSuccess = true
       // 清空表单
       resetForm()
       return true
     } catch (error: any) {
+      console.error('Submit error:', error)
       state.isError = true
-      state.errorMessage = error?.data?.message || '提交失败，请稍后重试'
+      state.errorMessage = error?.message || '提交失败，请稍后重试'
       return false
     } finally {
       state.isSubmitting = false
