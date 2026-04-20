@@ -47,6 +47,8 @@ jobs:
       - name: Build
         env:
           NUXT_PUBLIC_CDN_BASE_URL: https://wumacms.github.io/berry-medical-nuxt
+          NUXT_PUBLIC_SUPABASE_URL: ${{ secrets.NUXT_PUBLIC_SUPABASE_URL }}
+          NUXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NUXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: pnpm run generate
 
       - name: Create SPA fallback
