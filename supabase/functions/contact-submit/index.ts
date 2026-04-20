@@ -33,9 +33,6 @@ Deno.serve(async (req: Request) => {
     // Create Supabase client with service role key for server-side operations
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-    // Create Supabase client with service role key for server-side operations
-    const supabase = createClient(supabaseUrl, supabaseServiceKey)
-
     const { name, phone, email, company, message }: ContactFormData = await req.json()
 
     // Validate required fields
