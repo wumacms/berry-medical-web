@@ -1,1 +1,0 @@
-import{k as n}from"./DD8MKuzb.js";function c(){const e=n().app.baseURL||"";return{cdnBaseUrl:e,getImageUrl:r=>{if(!r)return"";if(r.startsWith("http"))return r;const t=r.startsWith("/")?r:`/${r}`;return`${e.replace(/\/$/,"")}${t}`}}}export{c as u};
