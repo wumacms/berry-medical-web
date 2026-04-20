@@ -7,10 +7,9 @@ export default defineNuxtConfig({
 
   supabase: {
     redirectOptions: {
-      login: '/admin/login',
-      callback: '/admin/confirm',
+      login: '/login',
+      callback: '/confirm',
       exclude: [
-        '/admin/login*',
         // 前台公开页面 - 不需要认证
         '/',
         '/news',
@@ -73,9 +72,7 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/news': { prerender: true },
     '/news/**': { prerender: true },
-    '/contact': { prerender: true },
-    // 管理后台使用 SSR 模式（需要认证）
-    '/admin/**': { ssr: false }
+    '/contact': { prerender: true }
   },
 
   nitro: {
