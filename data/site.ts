@@ -131,7 +131,7 @@ export const siteConfig: SiteConfig = {
   slogan: siteData?.slogan || '核医学场所建设一站式服务商',
   description: siteData?.description || '',
   keywords: siteData?.seo?.keywords || ['核医学', '辐射防护', '放射性药品', 'GMP'],
-  url: siteData?.url || 'https://wumacms.github.io/berry-medical-nuxt',
+  url: siteData?.url || 'https://wumacms.github.io/berry-medical-web',
   icp: siteData?.icp || '豫ICP备2025123456号',
   logo: siteData?.logo || '/images/logos/logo.png',
   contact: {

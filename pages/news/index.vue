@@ -71,7 +71,7 @@ const { getImageUrl } = useCdnUrl()
 const { news: newsSection } = useSiteConfig()
 const { allNews } = useNews()
 
-const siteUrl = 'https://wumacms.github.io/berry-medical-nuxt'
+const siteUrl = 'https://wumacms.github.io/berry-medical-web'
 
 // SEO 配置
 useSeoMeta({

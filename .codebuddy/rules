@@ -223,8 +223,8 @@ pnpm preview      # 预览构建结果
 ## 部署
 
 ### 访问地址
-- `https://wumacms.github.io/berry-medical-nuxt/`
-- baseURL: `/berry-medical-nuxt/`
+- `https://wumacms.github.io/berry-medical-web/`
+- baseURL: `/berry-medical-web/`
 
 ### 预渲染路由
 | 路由 | 说明 |

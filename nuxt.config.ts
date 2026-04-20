@@ -15,10 +15,10 @@ export default defineNuxtConfig({
         '/news',
         '/news/**',
         '/contact',
-        '/berry-medical-nuxt/',
-        '/berry-medical-nuxt/news',
-        '/berry-medical-nuxt/news/**',
-        '/berry-medical-nuxt/contact'
+        '/berry-medical-web/',
+        '/berry-medical-web/news',
+        '/berry-medical-web/news/**',
+        '/berry-medical-web/contact'
       ]
     },
     types: '~/types/supabase-database'
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    baseURL: '/berry-medical-nuxt/',
+    baseURL: '/berry-medical-web/',
     head: {
       title: '贝瑞医疗 | 核医学场所建设一站式服务商',
       htmlAttrs: {

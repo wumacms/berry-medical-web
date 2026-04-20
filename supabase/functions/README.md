@@ -62,7 +62,7 @@ supabase functions deploy contact-submit
 ### 方式二：通过 Supabase Dashboard
 
 1. 访问 [Supabase Dashboard](https://supabase.com/dashboard)
-2. 选择项目 `berry-medical-nuxt`
+2. 选择项目 `berry-medical-web`
 3. 导航到 **Edge Functions**
 4. 点击 **New Function**
 5. 选择 **From existing folder**，选择 `supabase/functions/contact-submit`

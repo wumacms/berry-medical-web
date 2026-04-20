@@ -64,7 +64,7 @@ pnpm preview
 通过 Supabase Dashboard 手动部署：
 
 1. 访问 [Supabase Dashboard](https://supabase.com/dashboard)
-2. 选择项目 `berry-medical-nuxt`
+2. 选择项目 `berry-medical-web`
 3. 导航到 **Edge Functions**
 4. 点击 **New Function**
 5. 在编辑器中粘贴 `supabase/functions/contact-submit/index.ts` 的代码
@@ -209,7 +209,7 @@ NUXT_PUBLIC_CDN_BASE_URL=your_cdn_url
 | `NUXT_PUBLIC_SUPABASE_URL` | 公开的 Supabase URL | 同 SUPABASE_URL |
 | `NUXT_PUBLIC_SUPABASE_ANON_KEY` | 公开的 Anon Key | Supabase Dashboard → Project Settings → API |
 
-> **注意**：`NUXT_PUBLIC_CDN_BASE_URL` 在 `deploy.yml` 中已硬编码为 `https://wumacms.github.io/berry-medical-nuxt`，如需更改请修改该文件。
+> **注意**：`NUXT_PUBLIC_CDN_BASE_URL` 在 `deploy.yml` 中已硬编码为 `https://wumacms.github.io/berry-medical-web`，如需更改请修改该文件。
 
 ## 数据库与后端
 

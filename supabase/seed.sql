@@ -6,7 +6,7 @@
 INSERT INTO websites (id, name, domain, company_name, slogan, description, logo, url, icp, contact, nav_config, footer_config, seo) VALUES (
   'main', '贝瑞医疗', 'www.berrymedical.com.cn', '贝瑞医疗科技（郑州）有限公司', '核医学场所建设一站式服务商',
   '深耕核医学场所建设全产业链，提供选址、方案设计、辐射防护施工、环评卫评支持、设备供应及智慧运维。',
-  '/images/logos/logo.png', 'https://wumacms.github.io/berry-medical-nuxt', '豫ICP备2025123456号',
+  '/images/logos/logo.png', 'https://wumacms.github.io/berry-medical-web', '豫ICP备2025123456号',
   '{"phone": ["18503878846", "13215991477"], "email": "530051528@qq.com", "address": {"province": "河南省", "city": "郑州市", "street": "高新技术产业开发区瑞达路睿达广场1栋14层"}}'::jsonb,
   '{"logo": "/images/logos/logo.png", "logoAlt": "贝瑞医疗", "ctaButton": {"text": "免费咨询", "link": "/#contact"}}'::jsonb,
   '{"copyright": "© 2025 贝瑞医疗科技（郑州）有限公司", "icp": "豫ICP备2025123456号"}'::jsonb,
