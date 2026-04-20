@@ -1,9 +1,8 @@
 /**
  * 联系人表单提交 Composable
- * 处理表单验证和 Supabase 数据提交
+ * 处理表单验证和 Edge Function 提交
  */
 import { ref, reactive } from 'vue'
-import { createClient } from '@supabase/supabase-js'
 
 // 表单数据类型
 export interface ContactFormData {
@@ -60,12 +59,10 @@ export function useContactForm() {
     phone: ''
   })
 
-  // 从环境变量获取 Supabase 配置
+  // 从环境变量获取 Supabase Edge Function URL
   const config = useRuntimeConfig()
   const supabaseUrl = config.public.supabaseUrl as string
-  const supabaseAnonKey = config.public.supabaseAnonKey as string
-
-  const supabase = createClient(supabaseUrl, supabaseAnonKey)
+  const edgeFunctionUrl = `${supabaseUrl}/functions/v1/contact-submit`
 
   // 清除字段错误
   const clearFieldError = (field: 'name' | 'phone') => {
@@ -124,21 +121,27 @@ export function useContactForm() {
     state.isSubmitting = true
 
     try {
-      // 直接使用 Supabase 客户端插入数据
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert([{
+      // 调用 Supabase Edge Function
+      const response = await fetch(edgeFunctionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: formData.name.trim(),
           phone: formData.phone.trim(),
-          email: formData.email.trim() || null,
-          company: formData.company.trim() || null,
-          message: formData.message.trim() || null
-        }])
+          email: formData.email.trim() || undefined,
+          company: formData.company.trim() || undefined,
+          message: formData.message.trim() || undefined
+        })
+      })
 
-      if (error) {
-        console.error('Supabase error:', error)
+      const result = await response.json()
+
+      if (!response.ok) {
+        console.error('Edge Function error:', result)
         state.isError = true
-        state.errorMessage = '提交失败，请稍后重试'
+        state.errorMessage = result.error || '提交失败，请稍后重试'
         return false
       }
 
